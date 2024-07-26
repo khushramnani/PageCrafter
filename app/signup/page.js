@@ -2,7 +2,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 const signup = () => {
+    const { data: session } = useSession()
+    if(session) {
+        const router = useRouter()
+        router.push("/Login")
+}
   return (
 <>
 <div id="login-popup" tabindex="-1"

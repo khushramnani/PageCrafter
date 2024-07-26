@@ -19,7 +19,6 @@ export default function RootLayout({ children }) {
       <SessionWrapper>
        <Navbar/>
         <div className="min-h screen">
-
         {children}
         </div>
         <Footer/>

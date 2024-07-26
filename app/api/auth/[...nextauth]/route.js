@@ -5,6 +5,7 @@ import NextAuth from "next-auth";
 // import EmailProvider from "next-auth/providers/email";
 import GitHubProvider from "next-auth/providers/github";
 
+
 const authOptions = {
   providers: [
     // OAuth authentication providers...
@@ -32,9 +33,28 @@ const authOptions = {
     //   from: "NextAuth.js <no-reply@example.com>",
     // }),
   ],
+
+  // callbacks: {
+  //   async signIn({ user, account, profile, email, credentials }) {
+  //     return true;
+  //   },
+  //   async redirect({ url, baseUrl }) {
+  //     return baseUrl;
+  //   },
+  //   async session({ session, token, user }) {
+  //     return session;
+  //   },
+  //   async jwt({ token, user, account, profile, isNewUser }) {
+  //     return token;
+  //   },
+  // },
+  // debug: true,
+
 };
 
-const handler = NextAuth(authOptions);
+
+
+const handler = (req, res) => NextAuth(req, res, authOptions);
 
 export { handler as GET, handler as POST };
 
