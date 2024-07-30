@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         <div className="min-h screen">
         {children}
         </div>
-        <Footer/>
+        
       </SessionWrapper>
         </body>
       

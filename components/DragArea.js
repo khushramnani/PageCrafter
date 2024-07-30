@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import FormComponent from '@/components/FormComponent';
 import Image from 'next/image';
 import { DndProvider } from 'react-dnd';
+import Edit from '@/components/Edit';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const ItemTypes = {
@@ -52,26 +53,17 @@ const DragArea = ({ components, setComponents, onComponentSelect }) => {
   };
 
   return (
-    <div
+    <div 
       ref={drop}
-      style={{
-        flex: 1,
-        padding: '20px',
-        border: '1px solid #ccc',
-        minHeight: '100vh',
-        background: isOver ? '#f0f0f0' : 'white',
-        position: 'relative',
-      }}
+      className={`flex-1 p-5 border border-gray-300 min-h-screen relative ${isOver ? 'bg-gray-200' : 'bg-white'}`}
     >
       <h3>Drag Area</h3>
-      <div ref={ref} style={{ position: 'relative' }}>
+      <div ref={ref} className="relative">
         {components.map((component, index) => (
           <div
             key={index}
+            className={`relative overflow-hidden box-border ${component.width === '100%' ? 'w-full' : ''} ${component.height === 'auto' ? 'h-auto' : ''}`}
             style={{
-              position: 'relative',
-              width: component.width,
-              height: component.height,
               backgroundColor: component.backgroundColor,
               color: component.textColor,
               fontSize: component.fontSize,
@@ -84,8 +76,7 @@ const DragArea = ({ components, setComponents, onComponentSelect }) => {
               textAlign: component.textAlign,
               fontFamily: component.fontFamily,
               backgroundImage: component.backgroundImage ? `url(${component.backgroundImage})` : 'none',
-              overflow: 'hidden', // Prevents overflow without scrollbars
-              boxSizing: 'border-box', // Includes padding and border in element's total width and height
+              ImageUrl: component.ImageUrl ? `url(${component.ImageUrl})` : 'none',
             }}
             onClick={() => onComponentSelect(index)}
           >

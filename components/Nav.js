@@ -1,40 +1,250 @@
-import React from 'react';
+"use client";
+import React, { useState } from "react";
+import Edit from "@/components/Edit";
 
-const Nav = ({ backgroundColor, textColor }) => {
+const Nav = ({ backgroundColor, textColor , color , padding, margin, borderWidth,borderStyle, borderColor,borderRadius,textAlign,fontFamily,backgroundImage,fontSize,ImageUrl }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor }}>
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#" style={{ color: textColor }}>Navbar</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+    <nav style={{
+      backgroundColor: backgroundColor,
+      color: textColor,
+      fontSize:fontSize,
+      padding: padding,
+      margin: margin,
+      borderWidth: borderWidth,
+      borderStyle: borderStyle,
+      borderColor: borderColor,
+      borderRadius: borderRadius,
+      textAlign: textAlign,
+      fontFamily: fontFamily,
+      backgroundImage: backgroundImage
+        ? `url(${backgroundImage})`
+        : "none",
+    }} className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+      <div style={{
+            backgroundColor: backgroundColor,
+            color: textColor,
+            fontSize:fontSize,
+            padding: padding,
+            margin: margin,
+            borderWidth: borderWidth,
+            borderStyle: borderStyle,
+            borderColor: borderColor,
+            borderRadius: borderRadius,
+            textAlign: textAlign,
+            fontFamily: fontFamily,
+            backgroundImage: backgroundImage
+              ? `url(${backgroundImage})`
+              : "none",
+          }} className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        {/* <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img
+            src={{ImageUrl}}
+            className="h-8"
+            alt="PageCrafter Logo"
+          /> */}
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            PageCrafter
+          </span>
+        {/* </a> */}
+        <button
+          style={{
+            backgroundColor: backgroundColor,
+            color: textColor,
+            fontSize:fontSize,
+            padding: padding,
+            margin: margin,
+            borderWidth: borderWidth,
+            borderStyle: borderStyle,
+            borderColor: borderColor,
+            borderRadius: borderRadius,
+            textAlign: textAlign,
+            fontFamily: fontFamily,
+            backgroundImage: backgroundImage
+              ? `url(${backgroundImage})`
+              : "none",
+          }}
+          data-collapse-toggle="navbar-solid-bg"
+          type="button"
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-solid-bg"
+          aria-expanded="false"
+        >
+          <span className="sr-only">Open main menu</span>
+          <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
+          </svg>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: textColor }}>Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#" style={{ color: textColor }}>Link</a>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ color: textColor }}>
-                Dropdown
+        <div
+          style={{
+            backgroundColor: backgroundColor,
+            color: textColor,
+            fontSize:fontSize,
+            padding: padding,
+            margin: margin,
+            borderWidth: borderWidth,
+            borderStyle: borderStyle,
+            borderColor: borderColor,
+            borderRadius: borderRadius,
+            textAlign: textAlign,
+            fontFamily: fontFamily,
+            backgroundImage: backgroundImage
+              ? `url(${backgroundImage})`
+              : "none",
+          }}
+          className="hidden w-full md:block md:w-auto"
+          id="navbar-solid-bg"
+        >
+          <ul
+            style={{
+              
+              color: textColor,
+              fontSize:fontSize,
+              padding: padding,
+              margin: margin,
+              borderWidth: borderWidth,
+              borderStyle: borderStyle,
+              borderColor: borderColor,
+              borderRadius: borderRadius,
+              textAlign: textAlign,
+              fontFamily: fontFamily,
+              backgroundImage: backgroundImage
+                ? `url(${backgroundImage})`
+                : "none",
+            }}
+            className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700"
+          >
+            <li
+              style={{
+                backgroundColor: backgroundColor,
+                color: textColor,
+                fontSize:fontSize,
+                padding: padding,
+                margin: margin,
+                borderWidth: borderWidth,
+                borderStyle: borderStyle,
+                borderColor: borderColor,
+                borderRadius: borderRadius,
+                textAlign: textAlign,
+                fontFamily: fontFamily,
+                backgroundImage: backgroundImage
+                  ? `url(${backgroundImage})`
+                  : "none",
+              }}
+            >
+              <a
+                href="#"
+                className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
+                aria-current="page"
+              >
+                Home
               </a>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="#" style={{ color: textColor }}>Action</a></li>
-                <li><a className="dropdown-item" href="#" style={{ color: textColor }}>Another action</a></li>
-                <li><hr className="dropdown-divider"/></li>
-                <li><a className="dropdown-item" href="#" style={{ color: textColor }}>Something else here</a></li>
-              </ul>
             </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true" style={{ color: textColor }}>Disabled</a>
+            <li
+              style={{
+                backgroundColor: backgroundColor,
+                color: textColor,
+                fontSize:fontSize,
+                padding: padding,
+                margin: margin,
+                borderWidth: borderWidth,
+                borderStyle: borderStyle,
+                borderColor: borderColor,
+                borderRadius: borderRadius,
+                textAlign: textAlign,
+                fontFamily: fontFamily,
+                backgroundImage: backgroundImage
+                  ? `url(${backgroundImage})`
+                  : "none",
+              }}
+            >
+              <a
+                href="#"
+                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent "
+              >
+                Services
+              </a>
+            </li>
+            <li
+              style={{
+                backgroundColor: backgroundColor,
+                color: textColor,
+                fontSize:fontSize,
+                padding: padding,
+                margin: margin,
+                borderWidth: borderWidth,
+                borderStyle: borderStyle,
+                borderColor: borderColor,
+                borderRadius: borderRadius,
+                textAlign: textAlign,
+                fontFamily: fontFamily,
+                backgroundImage: backgroundImage
+                  ? `url(${backgroundImage})`
+                  : "none",
+              }}
+            >
+              <a
+                href="#"
+                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Pricing
+              </a>
+            </li>
+            <li
+              style={{
+                backgroundColor: backgroundColor,
+                color: textColor,
+                fontSize:fontSize,
+                padding: padding,
+                margin: margin,
+                borderWidth: borderWidth,
+                borderStyle: borderStyle,
+                borderColor: borderColor,
+                borderRadius: borderRadius,
+                textAlign: textAlign,
+                fontFamily: fontFamily,
+                backgroundImage: backgroundImage
+                  ? `url(${backgroundImage})`
+                  : "none",
+              }}
+            >
+              <a
+                style={{
+                  backgroundColor: backgroundColor,
+                  color: textColor,
+                  fontSize:fontSize,
+                  padding: padding,
+                  margin: margin,
+                  borderWidth: borderWidth,
+                  borderStyle: borderStyle,
+                  borderColor: borderColor,
+                  borderRadius: borderRadius,
+                  textAlign: textAlign,
+                  fontFamily: fontFamily,
+                  backgroundImage: backgroundImage
+                    ? `url(${backgroundImage})`
+                    : "none",
+                }}
+                href="#"
+                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Contact
+              </a>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
