@@ -22,8 +22,7 @@ const Dashboard = () => {
     
     <div className='absolute top-0 z-[-2] pt-16 w-screen bg-blue-950 h-[90vh] text-white'>
       <h1>dashboard</h1>
-      <Image src="" alt="" />
-      <Image className='rounded-full' src={session.user.image} alt="" />
+      <Image width={500} height={500} className='rounded-full' src={session.user.image} alt="" />
       <h1>Username : {session.user.name}</h1>
       {console.log(session.user.image)}
     </div>

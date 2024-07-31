@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Dashboard from "@/app/dashboard/page";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -64,8 +65,8 @@ const Navbar = () => {
                   aria-labelledby="dropdownDefaultButton"
                 >
                   <li>
-                    <Link href="/Dashboard">
-                      <div onClick={()=>{"/Dashboard"}} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <Link href="/dashboard">
+                      <div onClick={()=>{"/dashboard"}} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         Dashboard
                       </div>
                     </Link>
@@ -84,7 +85,7 @@ const Navbar = () => {
           )}
 
           {!session && (
-            <Link href="/signup">
+            <Link href="/Signup">
               <button>Signup</button>
             </Link>
           )}

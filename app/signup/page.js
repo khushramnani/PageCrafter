@@ -67,7 +67,7 @@ const Signup = () =>{
 
                     <button onClick={()=>{signIn("github")}} 
                         className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
-                            src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub"
+                           width={100} height={100} src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub"
                             className="h-[18px] w-[18px] "/>
                         Continue with GitHub
                     </button>
@@ -75,7 +75,7 @@ const Signup = () =>{
                     <button
                         className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
                             src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"
-                            className="h-[18px] w-[18px] "/>Continue with
+                          width={100} height={100}  className="h-[18px] w-[18px] "/>Continue with
                         Google
                     </button>
 
@@ -83,7 +83,7 @@ const Signup = () =>{
                     <button
                         className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
                             src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="Google"
-                            className="h-[18px] w-[18px] "/>Continue with
+                         width={100} height={100}   className="h-[18px] w-[18px] "/>Continue with
                         LinkedIn
                     </button>
                 </div>
