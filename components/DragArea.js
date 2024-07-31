@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { DndProvider } from 'react-dnd';
 import Edit from '@/components/Edit';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import Images from './Image';
 
 const ItemTypes = {
   NAVBAR: 'navbar',
@@ -82,7 +83,7 @@ const DragArea = ({ components, setComponents, onComponentSelect }) => {
           >
             {component.type === ItemTypes.NAVBAR && <Nav backgroundColor={component.backgroundColor} textColor={component.textColor} />}
             {component.type === ItemTypes.FORM && <FormComponent />}
-            {component.type === ItemTypes.IMAGE && <Image />}
+            {component.type === ItemTypes.IMAGE && <Images/>}
           </div>
         ))}
       </div>

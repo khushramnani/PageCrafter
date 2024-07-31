@@ -1,3 +1,4 @@
+// app/Builder/page.js
 "use client"
 import React, { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
@@ -24,19 +25,21 @@ const Builder = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar
-        selectedComponent={components[selectedComponentIndex]}
-        handleUpdateComponent={handleUpdateComponent}
-        components={components}
-        setComponents={setComponents}
-      />
-      <DragArea
-        components={components}
-        setComponents={setComponents}
-        onComponentSelect={handleSelectComponent}
-      />
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div style={{ display: 'flex' }}>
+        <Sidebar
+          selectedComponent={components[selectedComponentIndex]}
+          handleUpdateComponent={handleUpdateComponent}
+          components={components}
+          setComponents={setComponents}
+        />
+        <DragArea
+          components={components}
+          setComponents={setComponents}
+          onComponentSelect={handleSelectComponent}
+        />
+      </div>
+    </DndProvider>
   );
 };
 

@@ -1,14 +1,18 @@
 "use client"
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-const signup = () => {
-    const { data: session } = useSession()
-    if(session) {
-        const router = useRouter()
-        router.push("/Login")
-}
+const Signup = () =>{
+    const { data: session } = useSession();
+    const router = useRouter();
+  
+    if (session) {
+      router.push("/Login");
+      return null; //  this return to avoid rendering the rest of the component
+    }
+
   return (
 <>
 <div id="login-popup" tabindex="-1"
@@ -62,14 +66,14 @@ const signup = () => {
                 <div className="mt-7 flex flex-col gap-2">
 
                     <button onClick={()=>{signIn("github")}} 
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><img
+                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
                             src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub"
                             className="h-[18px] w-[18px] "/>
                         Continue with GitHub
                     </button>
 
                     <button
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><img
+                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
                             src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"
                             className="h-[18px] w-[18px] "/>Continue with
                         Google
@@ -77,7 +81,7 @@ const signup = () => {
 
 
                     <button
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><img
+                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
                             src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="Google"
                             className="h-[18px] w-[18px] "/>Continue with
                         LinkedIn
@@ -95,7 +99,7 @@ const signup = () => {
 
                 <div className="mt-3 text-center text-sm text-slate-600">
                     Already have an account?
-                    <a href="/Login" className="font-medium text-[#4285f4]">Login here..</a>
+                    <Link href="/Login" className="font-medium text-[#4285f4]">Login here..</Link>
                 </div>
             </div>
         </div>
@@ -106,4 +110,4 @@ const signup = () => {
   )
 }
 
-export default signup
+export default Signup

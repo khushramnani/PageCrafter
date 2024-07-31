@@ -2,25 +2,28 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from "next-auth/react"
+import Image from 'next/image'
 // import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 
 
-const page = () => {
-    const { data: session } = useSession()
-    if(!session) {
-        const router = useRouter()
-        router.push("/Login")
-}
+const Dashboard = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session) {
+    router.push("/Login");
+    return null; //  this return to avoid rendering the rest of the component
+  }
   return (
 <>
     
     
     <div className='absolute top-0 z-[-2] pt-16 w-screen bg-blue-950 h-[90vh] text-white'>
       <h1>dashboard</h1>
-      <img src="" alt="" />
-      <img className='rounded-full' src={session.user.image} alt="" />
+      <Image src="" alt="" />
+      <Image className='rounded-full' src={session.user.image} alt="" />
       <h1>Username : {session.user.name}</h1>
       {console.log(session.user.image)}
     </div>
@@ -31,4 +34,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Dashboard

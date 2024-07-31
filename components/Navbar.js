@@ -64,15 +64,15 @@ const Navbar = () => {
                   aria-labelledby="dropdownDefaultButton"
                 >
                   <li>
-                    <Link href="/dashboard">
-                      <div onClick={()=>{"/dashboard"}} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <Link href="/Dashboard">
+                      <div onClick={()=>{"/Dashboard"}} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         Dashboard
                       </div>
                     </Link>
                   </li>
                   <li>
                     <button
-                      onClick={() => signOut({ callbackUrl: '/' })}
+                      onClick={() => signOut({ callbackUrl: '/Login' })}
                       className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Sign out

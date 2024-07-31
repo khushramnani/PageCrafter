@@ -12,7 +12,7 @@ export default function Home() {
     <h1 className="font-bold text-6xl">Welcome to Page crafter</h1>
 
  
-    <img className="w-96 h-96" src="https://preview.redd.it/cheen-tapak-dum-dum-v0-fy93vms809ed1.jpeg?auto=webp&s=0a39567b5f4ad9490214e30f9f614ce69c21d0dc" alt="" />
+    {/* <Image width={500} height={500} className="w-96 h-96" src="https://preview.redd.it/cheen-tapak-dum-dum-v0-fy93vms809ed1.jpeg?auto=webp&s=0a39567b5f4ad9490214e30f9f614ce69c21d0dc" alt="" /> */}
   </div>
 </div>
 </div>

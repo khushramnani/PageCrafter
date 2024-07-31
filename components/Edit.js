@@ -15,7 +15,6 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
   const [textAlign, setTextAlign] = useState('left');
   const [fontFamily, setFontFamily] = useState('Arial');
   const [backgroundImage, setBackgroundImage] = useState('');
-  const [ImageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     if (selectedComponent) {
@@ -33,7 +32,6 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
       setTextAlign(selectedComponent.textAlign || 'left');
       setFontFamily(selectedComponent.fontFamily || 'Arial');
       setBackgroundImage(selectedComponent.backgroundImage || '');
-      setImageUrl(selectedComponent.ImageUrl || '');
     }
   }, [selectedComponent]);
 
@@ -54,14 +52,13 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
         borderRadius: `${borderRadius}px`,
         textAlign,
         fontFamily,
-        backgroundImage,
-        ImageUrl
+        backgroundImage
       });
     }
   }, [
     width, height, backgroundColor, textColor, fontSize,
     padding, margin, borderWidth, borderStyle, borderColor,
-    borderRadius, textAlign, fontFamily, backgroundImage
+    borderRadius, textAlign, fontFamily, backgroundImage,handleUpdateComponent, selectedComponent
   ]);
 
   return (
