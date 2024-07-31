@@ -15,6 +15,8 @@ const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
 
+    
+
     // AppleProvider({
     //   clientId: process.env.APPLE_ID,
     //   clientSecret: process.env.APPLE_SECRET,
@@ -33,6 +35,8 @@ const authOptions = {
     //   from: "NextAuth.js <no-reply@example.com>",
     // }),
   ],
+
+  secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
