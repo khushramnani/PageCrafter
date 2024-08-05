@@ -54,12 +54,17 @@ const DragArea = ({ components, setComponents, onComponentSelect }) => {
   };
 
   return (
+    <>
+
     <div 
       ref={drop}
-      className={`flex-1 p-5 border border-gray-300 min-h-screen relative ${isOver ? 'bg-gray-200' : 'bg-white'}`}
+      className={`flex-1   border border-gray-300 min-h-screen relative ${isOver ? 'bg-gray-200' : 'bg-slate-700'}`}
     >
-      <h3>Drag Area</h3>
-      <div ref={ref} className="relative">
+      <nav className='flex items-center justify-center w-full h-16 bg-slate-900 sticky ' >
+<h3>drag nav</h3>
+</nav>
+      
+      <div ref={ref} className="relative p-10 bg-slate-700 border border-gray-700">
         {components.map((component, index) => (
           <div
             key={index}
@@ -88,6 +93,7 @@ const DragArea = ({ components, setComponents, onComponentSelect }) => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

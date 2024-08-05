@@ -221,16 +221,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
           className="w-full mt-2"
         />
       </div>
-      <div className="mb-5">
-        <label>Logo Image URL:</label>
-        <input
-          type="text"
-          value={ImageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="Enter image URL"
-          className="w-full mt-2"
-        />
-      </div>
+
     </div>
   );
 };

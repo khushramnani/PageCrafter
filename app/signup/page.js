@@ -13,6 +13,43 @@ const Signup = () =>{
       return null; //  this return to avoid rendering the rest of the component
     }
 
+
+    // register with form 
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+      
+        try {
+          const formData = new FormData(event.currentTarget);
+          const name = formData.get('name');
+          const email = formData.get('email');
+          const password = formData.get('password');
+      
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              password,
+            }),
+          });
+      
+          if (response.status === 201) {
+            router.push('/dashboard');
+          } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData.error);
+            alert(`Error: ${errorData.error}`);
+          }
+        } catch (e) {
+          console.error('Error:', e.message);
+          alert(`Error: ${e.message}`);
+        }
+      }
+
   return (
 <>
 <div id="login-popup" tabindex="-1"
@@ -46,15 +83,19 @@ const Signup = () =>{
                 </div>
 
                 <div className='mt-8 '>
-                <form className="w-full">
+                <form onSubmit={handleSubmit} className="w-full">
+                    <label for="name" className="sr-only">Name</label>
+                    <input name="name" type="name" autocomplete="name" required=""
+                        className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                        placeholder="Enter your Name" />
                     <label for="email" className="sr-only">Email address</label>
                     <input name="email" type="email" autocomplete="email" required=""
                         className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-                        placeholder="Email Address" value=""/>
+                        placeholder="Email Address" />
                     <label for="password" className="sr-only">Password</label>
                     <input name="password" type="password" autocomplete="current-password" required=""
                         className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-                        placeholder="Password" value=""/>
+                        placeholder="Password" />
 
                     <button type="submit"
                         className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400">
@@ -66,26 +107,28 @@ const Signup = () =>{
                 <div className="mt-7 flex flex-col gap-2">
 
                     <button onClick={()=>{signIn("github")}} 
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
-                           width={100} height={100} src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub"
+                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60">
+                            <Image
+                        src="https://www.svgrepo.com/show/512317/github-142.svg"
+                        alt="GitHub Logo"
+                        width={64}
+                        height={64}
+                        quality={75} 
                             className="h-[18px] w-[18px] "/>
                         Continue with GitHub
                     </button>
 
                     <button
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
+                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60">
+                            <Image
                             src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"
-                          width={100} height={100}  className="h-[18px] w-[18px] "/>Continue with
+                          width={100} height={100}  className="h-[18px] w-[18px] "/>
+                          Continue with
                         Google
                     </button>
 
 
-                    <button
-                        className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><Image
-                            src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="Google"
-                         width={100} height={100}   className="h-[18px] w-[18px] "/>Continue with
-                        LinkedIn
-                    </button>
+ 
                 </div>
 
                 <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">

@@ -4,14 +4,36 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { doCredentialLogin } from '../api/actions';
 
 const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const [error, setError] = useState("");
 
   if (session) {
     router.push("/dashboard");
     return null;
+  }
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await doCredentialLogin(formData);
+
+      if (response.error) {
+        console.error("Authentication error:", response.error);
+        setError(response.error.message);
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (e) {
+      console.error("Error during authentication:", e);
+      const error = e
+      setError("Incorrect Email or Password");
+    }
   }
 
   return (
@@ -66,8 +88,11 @@ const Login = () => {
                   className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <Image
-                    src="https://www.svgrepo.com/show/512317/github-142.svg"
-                    alt="GitHub"
+                  src="https://www.svgrepo.com/show/512317/github-142.svg"
+                  alt="GitHub Logo"
+                  width={64}
+                  height={64}
+                  quality={75}
                     className="h-[18px] w-[18px]"
                   />
                   Continue with GitHub
@@ -75,6 +100,8 @@ const Login = () => {
 
                 <button className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60">
                   <Image
+                  width={50}
+                  height={50}
                     src="https://www.svgrepo.com/show/475656/google-color.svg"
                     alt="Google"
                     className="h-[18px] w-[18px]"
@@ -82,14 +109,7 @@ const Login = () => {
                   Continue with Google
                 </button>
 
-                <button className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60">
-                  <Image
-                    src="https://www.svgrepo.com/show/448234/linkedin.svg"
-                    alt="LinkedIn"
-                    className="h-[18px] w-[18px]"
-                  />
-                  Continue with LinkedIn
-                </button>
+
               </div>
 
               <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
@@ -98,7 +118,11 @@ const Login = () => {
                 <div className="h-px w-full bg-slate-200"></div>
               </div>
 
-              <form className="w-full">
+              <form onSubmit={onSubmit} className="w-full">
+              <label for="name" className="sr-only">Name</label>
+                    <input name="name" type="name" autocomplete="name" required=""
+                        className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                        placeholder="Enter your Name" />
                 <label htmlFor="email" className="sr-only">
                   Email address
                 </label>
@@ -121,10 +145,8 @@ const Login = () => {
                   className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                   placeholder="Password"
                 />
-                <p className="mb-3 mt-2 text-sm text-gray-500">
-                  <a href="/forgot-password" className="text-blue-800 hover:text-blue-600">
-                    Reset your password?
-                  </a>
+                <p className="mb-3 mt-2 text-sm text-red-500">
+                  {error}
                 </p>
                 <button
                   type="submit"

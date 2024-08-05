@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Dashboard from "@/app/dashboard/page";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -12,19 +10,19 @@ const Navbar = () => {
   return (
     <>
       <nav className="text-white w-full p-4 flex items-center justify-between">
-        <Image
-          className="w-12"
-          src="/assets"
-          width={500}
-          height={500}
-          alt="logo"
-        />
+        <Link href="/dashboard">
+          <h2>Hello</h2>
+        </Link>
 
         <div className="flex pr-4 gap-8">
           {!session && <button>Docs</button>}
           {session && (
             <div className="relative">
-              <button
+<Link href={'/dashboard'}>
+<button  type="button" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Dashboard</button></Link>
+
+<button onClick={()=> signOut()} type="button" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Sign Out</button>
+              {/* <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 onBlur={() => {
                   setTimeout(() => {
@@ -64,23 +62,24 @@ const Navbar = () => {
                   className="py-2 text-sm text-gray-700 dark:text-gray-200"
                   aria-labelledby="dropdownDefaultButton"
                 >
-                  <li>
-                    <Link href="/dashboard">
-                      <div onClick={()=>{"/dashboard"}} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <Link href="/dashboard">
+                  
+                    
+                      <span className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         Dashboard
-                      </div>
+                      </span>
+                  
                     </Link>
-                  </li>
-                  <li>
+                  
                     <button
-                      onClick={() => signOut({ callbackUrl: '/Login' })}
+                      onClick={() => signOut({ callbackUrl: "/" })}
                       className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Sign out
                     </button>
-                  </li>
+                  
                 </ul>
-              </div>
+              </div> */}
             </div>
           )}
 
