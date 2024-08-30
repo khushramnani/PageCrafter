@@ -41,10 +41,10 @@ const Login = () => {
       <div
         id="login-popup"
         tabIndex="-1"
-        className="bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex"
+        className="bg-[url('/assets/login-bg.svg')]  bg-[#000] fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex"
       >
-        <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-          <div className="relative bg-white rounded-lg shadow">
+        <div className="relative p-4 w-full max-w-md h-full md:h-auto ">
+          <div className="relative glassmorphism text-white rounded-lg shadow-2xl">
             <Link href="/" >
               <button
                 type="button"
@@ -72,10 +72,10 @@ const Login = () => {
               <p className="mb-4 text-sm font-normal text-gray-800"></p>
 
               <div className="text-center">
-                <p className="mb-3 text-2xl font-semibold leading-5 text-slate-900">
+                <p className="mb-3 text-2xl font-semibold leading-5 text-white">
                   Login to your account
                 </p>
-                <p className="mt-2 text-sm leading-4 text-slate-600">
+                <p className="mt-2 text-sm leading-4 text-white">
                   You must be logged in to perform this action.
                 </p>
               </div>
@@ -112,16 +112,16 @@ const Login = () => {
 
               </div>
 
-              <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
+              <div className="flex w-full items-center gap-2 py-6 text-sm text-white">
                 <div className="h-px w-full bg-slate-200"></div>
                 OR
                 <div className="h-px w-full bg-slate-200"></div>
               </div>
 
-              <form onSubmit={onSubmit} className="w-full">
-              <label for="name" className="sr-only">Name</label>
+              <form onSubmit={onSubmit} className="w-full flex flex-col gap-2">
+              <label htmlFor="name" className="sr-only">Name</label>
                     <input name="name" type="name" autocomplete="name" required=""
-                        className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                        className="text-black block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                         placeholder="Enter your Name" />
                 <label htmlFor="email" className="sr-only">
                   Email address
@@ -131,7 +131,7 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required=""
-                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                  className="block text-black w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                   placeholder="Email Address"
                 />
                 <label htmlFor="password" className="sr-only">
@@ -142,7 +142,7 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   required=""
-                  className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+                  className="text-black mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                   placeholder="Password"
                 />
                 <p className="mb-3 mt-2 text-sm text-red-500">
@@ -156,9 +156,9 @@ const Login = () => {
                 </button>
               </form>
 
-              <div className="mt-6 text-center text-sm text-slate-600">
+              <div className="mt-6 text-center text-sm text-white">
                 Don&apos;t have an account?
-                <a href="/signup" className="font-medium text-[#4285f4]">
+                <a href="/Signup" className="font-medium text-black">
                   Sign up
                 </a>
               </div>

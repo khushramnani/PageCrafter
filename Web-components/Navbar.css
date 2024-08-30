@@ -1,0 +1,11 @@
+/* Navbar.css */
+.navbar-brand,
+.nav-link,
+.dropdown-item,
+.nav-link.disabled {
+  color: var(--text-color) !important; /* Use a custom property */
+}
+
+.navbar {
+  background-color: var(--background-color); /* Use a custom property */
+}

@@ -26,7 +26,7 @@ const DashNav = () => {
           height={500}
           alt="logo"
         /> */}
-        <span className="text-2xl">PageCrafter</span>
+        <Image src="/assets/Nav-logo.png" width={100} height={100} alt="logo"  />
         </div>
 
         <div className="flex pr-4 gap-8">
@@ -66,15 +66,15 @@ const DashNav = () => {
                 </li>
               <hr />
                 
-                  <Link href="/dashboard">
+                  <Link href="/page.js">
                     <button
                       onClick={() => {
-                        "/dashboard";
+                        "/page.js";
                       }}
                       
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
-                      Dashboard
+                     Home
                     </button>
                   </Link>
                 

@@ -2,26 +2,41 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
-const Navbar = () => {
+const LandingNavbar = () => {
   const { data: session } = useSession();
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
     <>
-      <nav className="text-white w-full p-4 flex items-center justify-between">
-        <Link href="/dashboard">
-          <h2>Hello</h2>
-        </Link>
+      <nav className="navanimate text-black w-full flex items-center justify-between">
+
+        <div className="logo p-4">
+
+        <Image src="/assets/Nav-logo.png" width={100} height={100} alt="logo"  />
+        </div>
 
         <div className="flex pr-4 gap-8">
-          {!session && <button>Docs</button>}
+          {!session && <button className="docs-btn ">Docs</button>}
           {session && (
             <div className="relative">
-<Link href={'/dashboard'}>
-<button  type="button" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Dashboard</button></Link>
+              <Link href={"/dashboard"}>
+                <button
+                  type="button"
+                  className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  Dashboard
+                </button>
+              </Link>
 
-<button onClick={()=> signOut()} type="button" className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Sign Out</button>
+              <button
+                onClick={() => signOut()}
+                type="button"
+                className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              >
+                Sign Out
+              </button>
               {/* <button
                 onClick={() => setShowDropdown(!showDropdown)}
                 onBlur={() => {
@@ -85,7 +100,12 @@ const Navbar = () => {
 
           {!session && (
             <Link href="/Signup">
-              <button>Signup</button>
+              <button className="sign-login-btn">
+                Sign up
+                <div className="arrow-wrapper">
+                  <div className="arrow"></div>
+                </div>
+              </button>
             </Link>
           )}
         </div>
@@ -94,4 +114,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default LandingNavbar;

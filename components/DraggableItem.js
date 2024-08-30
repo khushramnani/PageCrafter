@@ -11,10 +11,7 @@ const DraggableItem = ({ type, children }) => {
   });
 
   return (
-    <div
-      ref={drag}
-      className={`p-2 border border-gray-300 my-2 cursor-move ${isDragging ? 'opacity-50' : 'opacity-100'}`}
-    >
+    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move', padding: '10px', border: '1px solid #ccc', margin: '10px 0' }}>
       {children}
     </div>
   );

@@ -1,8 +1,8 @@
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/LandingNavbar";
+// import Footer from "@/components/LandingFooter";
 import SessionWrapper from "@/components/sessionWrapper";
 const inter = Inter({ subsets: ["latin"] });
 import { dbConnect } from "@/lib/mongo";
