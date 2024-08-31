@@ -1,37 +1,52 @@
 import React from 'react';
-// import './Footer.css'; // Import the CSS file
 
 const Footer = ({ backgroundColor, textColor, fontSize }) => {
-  // Set custom properties for dynamic styles
-  document.documentElement.style.setProperty('--footer-text-color', textColor);
-  document.documentElement.style.setProperty('--footer-background-color', backgroundColor);
-  document.documentElement.style.setProperty('--footer-font-size', fontSize);
-
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
-          <h4>About Us</h4>
-          <p>
+    <footer
+      className={`py-10 px-5 font-sans`}
+      style={{
+        backgroundColor: backgroundColor,
+        color: textColor,
+        fontSize: fontSize,
+      }}
+    >
+      <div className="flex flex-wrap justify-between">
+        <div className="flex-1 min-w-[200px] mr-5">
+          <h4 className="mb-4" style={{ fontSize: fontSize }}>About Us</h4>
+          <p className="leading-relaxed" style={{ fontSize: fontSize }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.
           </p>
         </div>
-        <div className="footer-section">
-          <h4>Contact</h4>
-          <p>Email: info@example.com</p>
-          <p>Phone: +123 456 7890</p>
+        <div className="flex-1 min-w-[200px] mr-5">
+          <h4 className="mb-4" style={{ fontSize: fontSize }}>Contact</h4>
+          <p style={{ fontSize: fontSize }}>Email: info@example.com</p>
+          <p style={{ fontSize: fontSize }}>Phone: +123 456 7890</p>
         </div>
-        <div className="footer-section">
-          <h4>Follow Us</h4>
-          <ul className="social-media">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Instagram</a></li>
+        <div className="flex-1 min-w-[200px]">
+          <h4 className="mb-4" style={{ fontSize: fontSize }}>Follow Us</h4>
+          <ul className="list-none p-0">
+            <li className="inline mr-3">
+              <a href="#" className="no-underline hover:underline" style={{ color: textColor, fontSize: fontSize }}>
+                Facebook
+              </a>
+            </li>
+            <li className="inline mr-3">
+              <a href="#" className="no-underline hover:underline" style={{ color: textColor, fontSize: fontSize }}>
+                Twitter
+              </a>
+            </li>
+            <li className="inline">
+              <a href="#" className="no-underline hover:underline" style={{ color: textColor, fontSize: fontSize }}>
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
       </div>
-      <div className="footer-bottom">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+      <div className="text-center pt-5 mt-5 border-t border-gray-700">
+        <p style={{ fontSize: fontSize }}>
+          &copy; 2024 Your Company. All rights reserved.
+        </p>
       </div>
     </footer>
   );

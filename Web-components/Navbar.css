@@ -9,3 +9,13 @@
 .navbar {
   background-color: var(--background-color); /* Use a custom property */
 }
+
+/* Navbar.css */
+.navbar-title-input {
+  font-size: 1.25rem;
+  border: none;
+  outline: none;
+  width: auto;
+  background-color: transparent;
+  color: var(--text-color);
+}

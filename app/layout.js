@@ -6,6 +6,8 @@ import Navbar from "@/components/LandingNavbar";
 import SessionWrapper from "@/components/sessionWrapper";
 const inter = Inter({ subsets: ["latin"] });
 import { dbConnect } from "@/lib/mongo";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export const metadata = {
   title: "Create Next App",

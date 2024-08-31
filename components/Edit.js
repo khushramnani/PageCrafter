@@ -15,23 +15,27 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
   const [textAlign, setTextAlign] = useState('');
   const [fontFamily, setFontFamily] = useState('');
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [backgroundImageWidth, setBackgroundImageWidth] = useState('');
+  const [backgroundImageHeight, setBackgroundImageHeight] = useState('');
 
   useEffect(() => {
     if (selectedComponent) {
-      setWidth(selectedComponent.width ? selectedComponent.width.replace('vw', '') : '100'); // Default width
-      setHeight(selectedComponent.height ? selectedComponent.height.replace('px', '') : '100'); // Default height
-      setBackgroundColor(selectedComponent.backgroundColor || '#ffffff'); // Default color
-      setTextColor(selectedComponent.textColor || '#000000'); // Default text color
-      setFontSize(selectedComponent.fontSize ? selectedComponent.fontSize.replace('px', '') : '16'); // Default font size
-      setPadding(selectedComponent.padding ? selectedComponent.padding.replace('px', '') : '0'); // Default padding
-      setMargin(selectedComponent.margin ? selectedComponent.margin.replace('px', '') : '0'); // Default margin
-      setBorderWidth(selectedComponent.borderWidth ? selectedComponent.borderWidth.replace('px', '') : '1'); // Default border width
-      setBorderStyle(selectedComponent.borderStyle || 'solid'); // Default border style
-      setBorderColor(selectedComponent.borderColor || '#000000'); // Default border color
-      setBorderRadius(selectedComponent.borderRadius ? selectedComponent.borderRadius.replace('px', '') : '0'); // Default border radius
-      setTextAlign(selectedComponent.textAlign || 'left'); // Default text alignment
-      setFontFamily(selectedComponent.fontFamily || 'Arial'); // Default font family
-      setBackgroundImage(selectedComponent.backgroundImage || ''); // Default background image
+      setWidth(selectedComponent.width ? selectedComponent.width.replace('px', '') : '100');
+      setHeight(selectedComponent.height ? selectedComponent.height.replace('px', '') : '100');
+      setBackgroundColor(selectedComponent.backgroundColor || '#ffffff');
+      setTextColor(selectedComponent.textColor || '#000000');
+      setFontSize(selectedComponent.fontSize ? selectedComponent.fontSize.replace('px', '') : '16');
+      setPadding(selectedComponent.padding ? selectedComponent.padding.replace('px', '') : '0');
+      setMargin(selectedComponent.margin ? selectedComponent.margin.replace('px', '') : '0');
+      setBorderWidth(selectedComponent.borderWidth ? selectedComponent.borderWidth.replace('px', '') : '1');
+      setBorderStyle(selectedComponent.borderStyle || 'solid');
+      setBorderColor(selectedComponent.borderColor || '#000000');
+      setBorderRadius(selectedComponent.borderRadius ? selectedComponent.borderRadius.replace('px', '') : '0');
+      setTextAlign(selectedComponent.textAlign || 'left');
+      setFontFamily(selectedComponent.fontFamily || 'Arial');
+      setBackgroundImage(selectedComponent.backgroundImage || '');
+      setBackgroundImageWidth(selectedComponent.backgroundImageWidth ? selectedComponent.backgroundImageWidth.replace('px', '') : '100');
+      setBackgroundImageHeight(selectedComponent.backgroundImageHeight ? selectedComponent.backgroundImageHeight.replace('px', '') : '100');
     }
   }, [selectedComponent]);
 
@@ -44,24 +48,24 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
   };
 
   return (
-    <div className="p-5 border border-gray-300 rounded-lg bg-gray-100 w-full max-w-lg mx-auto">
+    <div className="p-5 border border-gray-300 rounded-lg bg-gray-100 w-full max-w-2xl mx-auto">
       <h2 className="mb-5 text-xl">Edit Component</h2>
 
       <div className="mb-5">
         <h3 className="text-lg mb-2">Dimensions</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="block font-bold">
             Width:
             <input
               type="number"
               value={width}
               onChange={(e) => {
-                const newWidth = `${e.target.value}vw`;
+                const newWidth = `${e.target.value}px`;
                 setWidth(e.target.value);
                 handleImmediateChange('width', newWidth);
               }}
               placeholder="Width in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
           <label className="block font-bold">
@@ -70,12 +74,12 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
               type="number"
               value={height}
               onChange={(e) => {
-                const newHeight = `${e.target.value}vh`;
+                const newHeight = `${e.target.value}px`;
                 setHeight(e.target.value);
                 handleImmediateChange('height', newHeight);
               }}
               placeholder="Height in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
         </div>
@@ -83,7 +87,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
 
       <div className="mb-5">
         <h3 className="text-lg mb-2">Background</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="block font-bold">
             Background Color:
             <input
@@ -93,7 +97,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 setBackgroundColor(e.target.value);
                 handleImmediateChange('backgroundColor', e.target.value);
               }}
-              className="block mt-1 p-0 w-14 h-7 border-none cursor-pointer"
+              className="block mt-1 p-0 w-12 h-8 border-none cursor-pointer"
             />
           </label>
           <label className="block font-bold">
@@ -106,7 +110,35 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('backgroundImage', e.target.value);
               }}
               placeholder="Background Image URL"
-              className="block w-full mt-1 p-2 text-base border rounded-md"
+              className="block mt-1 p-2 w-full border border-gray-400 rounded"
+            />
+          </label>
+          <label className="block font-bold">
+            Background Image Width:
+            <input
+              type="number"
+              value={backgroundImageWidth}
+              onChange={(e) => {
+                const newWidth = `${e.target.value}px`;
+                setBackgroundImageWidth(e.target.value);
+                handleImmediateChange('backgroundImageWidth', newWidth);
+              }}
+              placeholder="Width in px"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
+            />
+          </label>
+          <label className="block font-bold">
+            Background Image Height:
+            <input
+              type="number"
+              value={backgroundImageHeight}
+              onChange={(e) => {
+                const newHeight = `${e.target.value}px`;
+                setBackgroundImageHeight(e.target.value);
+                handleImmediateChange('backgroundImageHeight', newHeight);
+              }}
+              placeholder="Height in px"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
         </div>
@@ -114,7 +146,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
 
       <div className="mb-5">
         <h3 className="text-lg mb-2">Text</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="block font-bold">
             Text Color:
             <input
@@ -124,7 +156,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 setTextColor(e.target.value);
                 handleImmediateChange('textColor', e.target.value);
               }}
-              className="block mt-1 p-0 w-14 h-7 border-none cursor-pointer"
+              className="block mt-1 p-0 w-12 h-8 border-none cursor-pointer"
             />
           </label>
           <label className="block font-bold">
@@ -138,7 +170,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('fontSize', newFontSize);
               }}
               placeholder="Font Size in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
           <label className="block font-bold">
@@ -151,7 +183,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('fontFamily', e.target.value);
               }}
               placeholder="Font Family"
-              className="block w-full mt-1 p-2 text-base border rounded-md"
+              className="block mt-1 p-2 w-full border border-gray-400 rounded"
             />
           </label>
           <label className="block font-bold">
@@ -162,7 +194,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 setTextAlign(e.target.value);
                 handleImmediateChange('textAlign', e.target.value);
               }}
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             >
               <option value="left">Left</option>
               <option value="center">Center</option>
@@ -174,7 +206,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
 
       <div className="mb-5">
         <h3 className="text-lg mb-2">Box Model</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="block font-bold">
             Padding:
             <input
@@ -186,7 +218,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('padding', newPadding);
               }}
               placeholder="Padding in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
           <label className="block font-bold">
@@ -200,7 +232,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('margin', newMargin);
               }}
               placeholder="Margin in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
         </div>
@@ -208,7 +240,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
 
       <div className="mb-5">
         <h3 className="text-lg mb-2">Border</h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <label className="block font-bold">
             Border Width:
             <input
@@ -220,7 +252,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('borderWidth', newBorderWidth);
               }}
               placeholder="Border Width in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
           <label className="block font-bold">
@@ -231,12 +263,11 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 setBorderStyle(e.target.value);
                 handleImmediateChange('borderStyle', e.target.value);
               }}
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             >
-              <option value="">None</option>
               <option value="solid">Solid</option>
-              <option value="dotted">Dotted</option>
               <option value="dashed">Dashed</option>
+              <option value="dotted">Dotted</option>
               <option value="double">Double</option>
               <option value="groove">Groove</option>
               <option value="ridge">Ridge</option>
@@ -253,7 +284,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 setBorderColor(e.target.value);
                 handleImmediateChange('borderColor', e.target.value);
               }}
-              className="block mt-1 p-0 w-14 h-7 border-none cursor-pointer"
+              className="block mt-1 p-0 w-12 h-8 border-none cursor-pointer"
             />
           </label>
           <label className="block font-bold">
@@ -267,7 +298,7 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
                 handleImmediateChange('borderRadius', newBorderRadius);
               }}
               placeholder="Border Radius in px"
-              className="block w-full mt-1 p-2 text-base border rounded-md max-w-xs"
+              className="block mt-1 p-2 w-full max-w-xs border border-gray-400 rounded"
             />
           </label>
         </div>

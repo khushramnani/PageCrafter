@@ -2,15 +2,10 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '@/constants/ItemTypes';
 
-const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => {
-  console.log("Rendering Section component");
-  console.log("Left component:", leftComponent);
-  console.log("Right component:", rightComponent);
-
+const ThreeColumnSection = ({ leftComponent, centerComponent, rightComponent, onDropLeft, onDropCenter, onDropRight }) => {
   const [{ isOverLeft }, dropLeft] = useDrop({
     accept: Object.values(ItemTypes),
     drop: (item) => {
-      console.log("Dropping on the left side:", item);
       onDropLeft(item);
       return { sectionIndex: null };
     },
@@ -19,10 +14,20 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
     }),
   });
 
+  const [{ isOverCenter }, dropCenter] = useDrop({
+    accept: Object.values(ItemTypes),
+    drop: (item) => {
+      onDropCenter(item);
+      return { sectionIndex: null };
+    },
+    collect: (monitor) => ({
+      isOverCenter: !!monitor.isOver(),
+    }),
+  });
+
   const [{ isOverRight }, dropRight] = useDrop({
     accept: Object.values(ItemTypes),
     drop: (item) => {
-      console.log("Dropping on the right side:", item);
       onDropRight(item);
       return { sectionIndex: null };
     },
@@ -31,7 +36,6 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
     }),
   });
 
-  // Ensure that the components are valid React elements before rendering
   const renderComponent = (component) => {
     return React.isValidElement(component) ? component : null;
   };
@@ -52,6 +56,19 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
         {leftComponent ? renderComponent(leftComponent) : 'Drop left component here'}
       </div>
       <div
+        ref={dropCenter}
+        style={{
+          flex: 2,
+          marginRight: '10px',
+          background: isOverCenter ? '#e0e0e0' : 'white',
+          padding: '10px',
+          boxSizing: 'border-box',
+          minHeight: '100px',
+        }}
+      >
+        {centerComponent ? renderComponent(centerComponent) : 'Drop center component here'}
+      </div>
+      <div
         ref={dropRight}
         style={{
           flex: 1,
@@ -68,4 +85,4 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
   );
 };
 
-export default Section;
+export default ThreeColumnSection;

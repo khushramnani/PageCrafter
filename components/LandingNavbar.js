@@ -10,7 +10,7 @@ const LandingNavbar = () => {
 
   return (
     <>
-      <nav className="navanimate text-black w-full flex items-center justify-between">
+      <nav className="navanimate text-black w-full flex items-center justify-between relative z-20">
 
         <div className="logo p-4">
 

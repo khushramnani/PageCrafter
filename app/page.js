@@ -5,6 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef, useEffect } from "react";
+import LandingNavbar from "@/components/LandingNavbar";
 
 const Home = () => {
   const ref = useRef();
@@ -39,14 +40,19 @@ const Home = () => {
       duration: 0.5,
     });
   }, []); 
+
   return (
     <>
       <div id="main" className="w-full">
-        <div className="relative h-full w-full bg-[#F9F7F7]">
-          <Navbar />
+        <div className="relative h-full w-full bg-[#eeee]">
+          <LandingNavbar />
+          
           <div
-            ref={ref}
-            className="animate heading w-full flex items-center justify-center p-12 md:pt-32 flex-col gap-4 z-10 relative"
+            className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] z-10"> {/* Adjust z-10 for background */}
+          </div>
+
+          <div
+            className="bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#D7C3F1,transparent)] animate heading w-full flex items-center justify-center p-12 md:pt-32 flex-col gap-4 z-10 relative"
           >
             <h1 className="font-bold text-7xl hero-heading">
               Build A Landing Page In Minutes
@@ -69,13 +75,8 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="absolute inset-0 bg-grid bg-size-14 bg-gradient z-0 pointer-events-none">
-            {/* Additional content can go here if needed */}
-          </div>
-
           <div
-            ref={ref}
-            className="hero-container relative  w-full flex justify-center"
+            className="hero-container relative w-full flex justify-center z-10"
           >
             <Image src={"/assets/builder-ss.png"} width={1200} height={50} />
           </div>
