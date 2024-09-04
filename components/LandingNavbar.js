@@ -14,7 +14,8 @@ const LandingNavbar = () => {
 
         <div className="logo p-4">
 
-        <Image src="/assets/Nav-logo.png" width={100} height={100} alt="logo"  />
+        {/* <Image src="/assets/Nav-logo.png" width={100} height={100} alt="logo"  /> */}
+        <span className="text-xl text-white font-bold">PageCrafter</span>
         </div>
 
         <div className="flex pr-4 gap-8">

@@ -1,14 +1,14 @@
 import React from 'react';
 
 const Footer = ({ backgroundColor, textColor, fontSize }) => {
+  const backgroundClass = backgroundColor ? `bg-[${backgroundColor}]` : '';
+  const textClass = textColor ? `text-[${textColor}]` : '';
+  const fontSizeClass = fontSize ? `text-[${fontSize}]` : '';
   return (
+    <>
     <footer
-      className={`py-10 px-5 font-sans`}
-      style={{
-        backgroundColor: backgroundColor,
-        color: textColor,
-        fontSize: fontSize,
-      }}
+      className={`py-10 px-5 font-sans ${backgroundClass} ${textClass} ${fontSizeClass}`}
+
     >
       <div className="flex flex-wrap justify-between">
         <div className="flex-1 min-w-[200px] mr-5">
@@ -49,6 +49,7 @@ const Footer = ({ backgroundColor, textColor, fontSize }) => {
         </p>
       </div>
     </footer>
+    </>
   );
 };
 

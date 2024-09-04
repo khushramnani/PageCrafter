@@ -1,25 +1,30 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useDrop } from "react-dnd";
-import Navbar from "@/Web-components/Navbar"
+import { useDrop, useDrag } from "react-dnd";
+import Navbar from "@/Web-components/Navbar";
 import FormComponent from "@/Web-components/FormComponent";
-import Image from "@/Web-components/Image"
-import Section from "@/components/Section"
-import Footer from "@/Web-components/Footer" // Importing Footer component
-import Box from '@/Web-components/Box'
+import Image from "@/Web-components/Image";
+import CheckBox from "@/Web-components/checkBox";
+import Section from "@/components/Section";
+import Footer from "@/Web-components/Footer";
+import Box from "@/Web-components/Box";
 import axios from "axios";
 
-const DragArea = ({
-  components,
-  setComponents,
-  onComponentSelect,
-  setHtmlContent,
-}) => {
+const ItemTypes = {
+  NAVBAR: "navbar",
+  FORM: "form",
+  IMAGE: "image",
+  SECTION: "section",
+  FOOTER: "footer",
+  BOX: "box",
+  CHECKBOX:"checkbox",
+};
+
+const DragArea = ({ components, setComponents, onComponentSelect, selectedComponentIndex, setHtmlContent }) => {
   const dropAreaRef = useRef(null);
   const [hoverIndex, setHoverIndex] = useState(null);
-  const [draggedItem, setDraggedItem] = useState(null);
 
   const moveElement = (index, item) => {
-    const newComponents = [...components];
+    const newComponents = components.filter((_, i) => i !== item.index);
     newComponents.splice(index, 0, { ...item, width: "100%", height: "auto" });
     setComponents(newComponents);
   };
@@ -37,12 +42,10 @@ const DragArea = ({
     }
   };
 
-  const serializeComponent = (component) => {
-    return {
-      type: component.type,
-      props: component.props,
-    };
-  };
+  const serializeComponent = (component) => ({
+    type: component.type,
+    props: component.props,
+  });
 
   const deserializeComponent = (component) => {
     switch (component.type) {
@@ -52,6 +55,8 @@ const DragArea = ({
         return <FormComponent {...component.props} />;
       case "image":
         return <Image {...component.props} />;
+        case "checkbox":
+          return <CheckBox {...component.props} />; // Keep only this one
       case "section":
         return (
           <Section
@@ -73,7 +78,9 @@ const DragArea = ({
             }
           />
         );
-      case "footer": // Handling Footer component
+        case "checkbox":
+          return <CheckBox {...component.props} />;
+      case "footer":
         return <Footer {...component.props} />;
       case "box":
         return <Box {...component.props} />;
@@ -86,10 +93,7 @@ const DragArea = ({
     try {
       const response = await axios.get("/api/components");
       const fetchedComponents = response.data;
-      const deserializedComponents = fetchedComponents.map((component) =>
-        deserializeComponent(component)
-      );
-      setComponents(deserializedComponents);
+      setComponents(fetchedComponents.map(deserializeComponent));
     } catch (error) {
       console.error("Error fetching components:", error);
     }
@@ -118,25 +122,15 @@ const DragArea = ({
   };
 
   const [{ isOver }, drop] = useDrop({
-    accept: ["navbar", "form", "image", "section", "footer", "box"],
+    accept: Object.values(ItemTypes),
     hover: (item, monitor) => {
       const clientOffset = monitor.getClientOffset();
-      if (dropAreaRef.current) {
+      if (clientOffset) {
         const hoverIndex = getHoverIndex(clientOffset);
         setHoverIndex(hoverIndex);
-        setDraggedItem(item);
       }
     },
-    drop: (item, monitor) => {
-      const dropTarget = monitor.getDropResult();
-      if (dropTarget && dropTarget.sectionIndex !== undefined) {
-        handleDropIntoSection(dropTarget.sectionIndex, item, dropTarget.side);
-        const newComponents = components.filter((c) => c !== draggedItem);
-        setComponents(newComponents);
-        updateHtmlContent();
-        setHoverIndex(null);
-        return;
-      }
+    drop: (item) => {
       if (hoverIndex !== null) {
         moveElement(hoverIndex, item);
         setHoverIndex(null);
@@ -157,10 +151,15 @@ const DragArea = ({
     return Math.min(hoverIndex, components.length);
   };
 
+  const handleRemoveComponent = (index) => {
+    const newComponents = components.filter((_, i) => i !== index);
+    setComponents(newComponents);
+    updateHtmlContent();
+  };
+
   const updateHtmlContent = () => {
     if (dropAreaRef.current) {
-      const htmlContent = dropAreaRef.current.innerHTML;
-      setHtmlContent(htmlContent);
+      setHtmlContent(dropAreaRef.current.innerHTML);
     }
   };
 
@@ -175,52 +174,105 @@ const DragArea = ({
   return (
     <div
       ref={drop}
-      style={{
-        flex: 1,
-        padding: "20px",
-        border: "1px solid #ccc",
-        minHeight: "100vh",
-        background: isOver ? "#f0f0f0" : "white",
-        position: "relative",
-      }}
-      className={`drag-area ${isOver ? "hover" : ""}`}
+      className={`flex-1 p-4  min-h-screen relative ${
+        isOver ? "bg-gray-200" : "bg-gray-100"
+      } drag-area`}
     >
-      <h3>Drag Area</h3>
-      <div ref={dropAreaRef} style={{ position: "relative" }}>
+      {/* <h3 className="text-lg font-semibold">Drag Area</h3> */}
+      <div ref={dropAreaRef} className="relative">
         {components.map((component, index) => (
-          <div
+          <DraggableComponent
             key={index}
-            onClick={() => onComponentSelect(index)}
-            style={{
-              position: "relative",
-              width: component.width,
-              height: component.height,
-              backgroundColor: component.backgroundColor,
-              color: component.textColor,
-              fontSize: component.fontSize,
-              padding: component.padding,
-              margin: component.margin,
-              borderWidth: component.borderWidth,
-              borderStyle: component.borderStyle,
-              borderColor: component.borderColor,
-              borderRadius: component.borderRadius,
-              textAlign: component.textAlign,
-              fontFamily: component.fontFamily,
-              backgroundImage: component.backgroundImage
-                ? `url(${component.backgroundImage})`
-                : "none",
-              overflow: "hidden",
-              boxSizing: "border-box",
-              ...(index === hoverIndex ? { border: "2px solid #000" } : {}),
-            }}
-          >
-            {deserializeComponent(component)}
-          </div>
+            index={index}
+            component={component}
+            onComponentSelect={onComponentSelect}
+            handleRemoveComponent={handleRemoveComponent}
+            isHovering={index === hoverIndex}
+            selectedComponentIndex={selectedComponentIndex}
+          />
         ))}
+        {hoverIndex !== null && (
+          <div
+            className="absolute left-0 right-0 h-[2px] z-[1]"
+            style={{
+              top: `${(hoverIndex / (components.length + 1)) * 100}%`,
+            }}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-export default DragArea;
+const DraggableComponent = ({
+  index,
+  component,
+  onComponentSelect,
+  handleRemoveComponent,
+  isHovering,
+  selectedComponentIndex,
+}) => {
+  const [{ isDragging }, drag] = useDrag({
+    type: component.type,
+    item: { ...component, index },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
 
+  return (
+    <div
+      ref={drag}
+      onClick={() => onComponentSelect(index)}
+      className={`relative box-border overflow-hidden ${
+        isDragging ? "opacity-50" : "opacity-100"
+      } ${isHovering || index === selectedComponentIndex ? "border-2 border-black" : ""}`}
+      style={{
+        width: component.width,
+        height: component.height,
+        backgroundColor: component.backgroundColor,
+        color: component.textColor,
+        fontSize: component.fontSize,
+        padding: component.padding,
+        margin: component.margin,
+        borderWidth: component.borderWidth,
+        borderStyle: component.borderStyle,
+        borderColor: component.borderColor,
+        borderRadius: component.borderRadius,
+        textAlign: component.textAlign,
+        fontFamily: component.fontFamily,
+        backgroundImage: component.backgroundImage
+          ? `url(${component.backgroundImage})`
+          : "none",
+        overflow: "hidden",
+        boxSizing: "border-box",
+        boxShadow: index === selectedComponentIndex ? "0 0 10px #00f" : "none",
+        zIndex: index === selectedComponentIndex ? 1 : "auto",
+      }}
+    >
+      {component.type === "navbar" && <Navbar {...component.props} />}
+      {component.type === "form" && <FormComponent {...component.props} />}
+      {component.type === "image" && <Image {...component.props} />}
+      {component.type === "section" && (
+        <Section
+          leftComponent={component.leftComponent}
+          rightComponent={component.rightComponent}
+        />
+      )}
+      {component.type === "footer" && <Footer {...component.props} />}
+      {component.type === "box" && <Box {...component.props} />}
+      {component.type === "checkbox" && <CheckBox {...component.props} />}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleRemoveComponent(index);
+        }}
+        className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5"
+      >
+        
+      </button>
+    </div>
+  );
+};
+
+export default DragArea;

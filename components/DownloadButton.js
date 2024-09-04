@@ -19,15 +19,8 @@ const DownloadButton = ({ htmlContent, cssContent, jsContent }) => {
   return (
     <button
       onClick={handleDownload}
-      className="btn btn-primary"
-      style={{
-        padding: '5px 10px',
-        fontSize: '14px',
-        borderRadius: '4px',
-        backgroundColor: '#007bff',
-        border: 'none',
-        color: '#fff',
-      }}
+      className="p-1 text-sm rounded-sm h-auto bg-blue-600 text-white"
+
     >
       Download Code
     </button>
