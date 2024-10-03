@@ -2,6 +2,7 @@ import React from "react";
 
 const CheckBox = ()=>{
 
+    return(
     <>
     <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
     <input
@@ -36,6 +37,8 @@ const CheckBox = ()=>{
 </div>
 
     </>
+    )
 }
 
 export default CheckBox
+

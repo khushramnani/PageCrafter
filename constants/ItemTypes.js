@@ -1,4 +1,5 @@
 import CheckBox from "@/Web-components/checkBox";
+import { TEXT } from "react-dnd-html5-backend/dist/NativeTypes";
 
 export const ItemTypes = {
     NAVBAR: 'navbar',
@@ -6,4 +7,7 @@ export const ItemTypes = {
     IMAGE: 'image',
     SECTION: 'section',
     CHECKBOX: "checkbox", // Make sure this matches your "type"
+    TEXT: "text", // Make sure this matches your "type"
   };
+
+  

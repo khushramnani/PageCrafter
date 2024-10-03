@@ -53,7 +53,7 @@ const Signup = () =>{
   return (
 <>
 <div id="login-popup" 
-    className="bg-[url('/assets/rrrainbow.svg')] bg-black fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
+    className="bg-[url('/assets/login-bg.svg')] bg-black fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
     <div className="relative p-4 w-full max-w-md h-full md:h-auto">
 
         <div className="relative glassmorphism rounded-lg shadow">

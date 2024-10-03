@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import DeleteButton from "./DeleteButton";
+import { SketchPicker } from 'react-color';
 import {
   CiTextAlignLeft,
   CiTextAlignRight,
   CiTextAlignCenter,
 } from "react-icons/ci";
 
-const Edit = ({ selectedComponent, handleUpdateComponent }) => {
+const Edit = ({ selectedComponent, handleUpdateComponent,selectedComponentIndex,setComponents,handleDeleteComponent,components }) => {
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
@@ -88,12 +90,35 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
     handleUpdateComponent(updatedComponent);
   };
 
+
+  const [color, setColor] = useState('#ffffff'); // Default color for drag area background
+  const [imageUrl, setImageUrl] = useState('');
+
+  const handleColorChange = (selectedColor) => {
+    setColor(selectedColor.hex); // Update local state
+    onColorChange(selectedColor.hex); // Pass color to DragArea
+  };
+
+  const handleImageUrlChange = () => {
+    onImageUrlChange(imageUrl); // Pass image URL to DragArea
+    setImageUrl(''); // Clear input after setting the image
+  };
+
+
   return (
     <div className="p-3 w-[15vw] mx-auto text-white flex flex-col items-center">
       {/* <h2 className="mb-2 text-lg">Edit Component</h2> */}
 
       {/* Dimensions */}
       <div className="pb-4">
+
+      <DeleteButton 
+            selectedComponentIndex={selectedComponentIndex} 
+            components={components} 
+            setComponents={setComponents}
+            onDelete={handleDeleteComponent} // Pass the delete handler to DeleteButton
+          />
+
         <h3 className="text-lg mb-2">Dimensions:</h3>
         <div className=" gap-4 grid grid-rows-2 grid-cols-2 ">
           <label className="block font-bold bg-slate-800 p-2 rounded-md">
@@ -162,12 +187,14 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
             <input
               type="color"
               value={backgroundColor}
+              onChangeComplete={handleColorChange}
               onChange={(e) => {
                 setBackgroundColor(e.target.value);
                 handleImmediateChange("backgroundColor", e.target.value);
               }}
               className="block mt-1 w-12 h-8 border-none cursor-pointer"
             />
+
           </label>
           <label className="block font-bold bg-slate-800 p-2  rounded-md">
             Text :
@@ -342,6 +369,9 @@ const Edit = ({ selectedComponent, handleUpdateComponent }) => {
           </label>
 
         </div>
+        <button onClick={handleImageUrlChange} style={{ width: '100%' }}>
+        Set Background Image
+      </button>
       </div>
     </div>
   );

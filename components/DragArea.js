@@ -1,13 +1,25 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDrop, useDrag } from "react-dnd";
-import Navbar from "@/Web-components/Navbar";
-import FormComponent from "@/Web-components/FormComponent";
 import Image from "@/Web-components/Image";
-import CheckBox from "@/Web-components/checkBox";
 import Section from "@/components/Section";
 import Footer from "@/Web-components/Footer";
 import Box from "@/Web-components/Box";
 import axios from "axios";
+import TextComponent from "@/Web-components/TextComponent";
+import { Checkbox } from "flowbite-react";
+import Navbar1 from "@/Web-components/navStyles/Navbar1";
+import Navbar2 from "@/Web-components/navStyles/Navbar2";
+import Navbar3 from "@/Web-components/navStyles/Navbar3";
+import FormComponent from "@/Web-components/formStyles/FormComponent1";
+import Template1 from "@/Web-components/templateStyles/template1";
+import Template2 from "@/Web-components/templateStyles/template2";
+import Template3 from "@/Web-components/templateStyles/template3";
+import Template4 from "@/Web-components/templateStyles/template4";
+import Template5 from "@/Web-components/templateStyles/template5";
+
+import FormComponent1 from "@/Web-components/formStyles/FormComponent1";
+import Form2 from "@/Web-components/formStyles/Form2";
+import TextBoxComponent from "@/Web-components/TextComponent";
 
 const ItemTypes = {
   NAVBAR: "navbar",
@@ -16,10 +28,30 @@ const ItemTypes = {
   SECTION: "section",
   FOOTER: "footer",
   BOX: "box",
-  CHECKBOX:"checkbox",
+  CHECKBOX: "checkbox",
+  TEXT: 'text',
+
+  NAVBARSTYLE1: "navbarStyle1",
+  NAVBARSTYLE2: "navbarStyle2",
+  NAVBARSTYLE3: "navbarStyle3",
+  NAVBARSTYLE4: "navbarStyle4",
+  NAVBARSTYLE5: "navbarStyle5",
+
+  FORMSTYLE1: "formStyle1",
+  FORMSTYLE2: "formStyle2",
+  FORMSTYLE3: "formStyle3",
+  FORMSTYLE4: "formStyle4",
+  FORMSTYLE5: "formStyle5",
+
+  TEMPLATESTYLE1: "templateStyle1",
+  TEMPLATESTYLE2: "templateStyle2",
+  TEMPLATESTYLE3: "templateStyle3",
+  TEMPLATESTYLE4: "templateStyle4",
+  TEMPLATESTYLE5: "templateStyle5",
 };
 
-const DragArea = ({ components, setComponents, onComponentSelect, selectedComponentIndex, setHtmlContent }) => {
+const DragArea = ({ backgroundColor, components, setComponents, onComponentSelect, setHtmlContent, selectedComponentIndex, setBackgroundColor, setBackgroundImage }) => {
+  const backgroundClass = backgroundColor ? `bg-[${backgroundColor}]` : '';
   const dropAreaRef = useRef(null);
   const [hoverIndex, setHoverIndex] = useState(null);
 
@@ -42,21 +74,54 @@ const DragArea = ({ components, setComponents, onComponentSelect, selectedCompon
     }
   };
 
+  const handleTextChange = (id, newText) => {
+    setComponents((prevComponents) =>
+      prevComponents.map((comp) =>
+        comp.id === id ? { ...comp, text: newText } : comp
+      )
+    );
+  };
+
   const serializeComponent = (component) => ({
     type: component.type,
     props: component.props,
   });
 
-  const deserializeComponent = (component) => {
+  const deserializeComponent = (component, index) => {
     switch (component.type) {
-      case "navbar":
-        return <Navbar {...component.props} />;
-      case "form":
-        return <FormComponent {...component.props} />;
+      case "navbarStyle1":
+        return <Navbar1 {...component.props} />;
+      case "navbarStyle2":
+        return <Navbar2 {...component.props} />;
+      case "navbarStyle3":
+        return <Navbar3 {...component.props} />;
+      case "navbarStyle4":
+        return <Navbar4 {...component.props} />;
+      case "navbarStyle5":
+        return <Navbar5 {...component.props} />;
+
+
+      case "templateStyle1":
+        return <Template1 {...component.props} />;
+      case "templateStyle2":
+        return <Template2 {...component.props} />;
+      case "templateStyle3":
+        return <Template3 {...component.props} />;
+      case "templateStyle4":
+        return <Template4 {...component.props} />;
+      case "templateStyle5":
+        return <Template5 {...component.props} />;
+
+
+      case "formStyle1":
+        return <FormComponent1 {...component.props} />;
+      case "formStyle2":
+        return <Form2 {...component.props} />;
+      case "text":
+        return <TextBoxComponent text={component.text}
+          onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />;
       case "image":
         return <Image {...component.props} />;
-        case "checkbox":
-          return <CheckBox {...component.props} />; // Keep only this one
       case "section":
         return (
           <Section
@@ -78,12 +143,12 @@ const DragArea = ({ components, setComponents, onComponentSelect, selectedCompon
             }
           />
         );
-        case "checkbox":
-          return <CheckBox {...component.props} />;
       case "footer":
         return <Footer {...component.props} />;
       case "box":
         return <Box {...component.props} />;
+      case "checkbox":
+        return <Checkbox {...component.props} />;
       default:
         return null;
     }
@@ -123,23 +188,37 @@ const DragArea = ({ components, setComponents, onComponentSelect, selectedCompon
 
   const [{ isOver }, drop] = useDrop({
     accept: Object.values(ItemTypes),
+    drop: (item, monitor) => {
+      const didDrop = monitor.didDrop();
+      if (didDrop) {
+        return;
+      }
+      if (hoverIndex !== null) {
+        moveElement(hoverIndex, item);
+        setHoverIndex(null);
+        updateHtmlContent();
+      } else {
+        setComponents((prevComponents) => [
+          ...prevComponents,
+          {
+            type: item.type,
+            text: item.type === ItemTypes.TEXT ? 'Enter your text here' : 'Navbar',
+          },
+        ]);
+      }
+    },
+
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
     hover: (item, monitor) => {
+
       const clientOffset = monitor.getClientOffset();
       if (clientOffset) {
         const hoverIndex = getHoverIndex(clientOffset);
         setHoverIndex(hoverIndex);
       }
     },
-    drop: (item) => {
-      if (hoverIndex !== null) {
-        moveElement(hoverIndex, item);
-        setHoverIndex(null);
-        updateHtmlContent();
-      }
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
   });
 
   const getHoverIndex = (clientOffset) => {
@@ -174,12 +253,18 @@ const DragArea = ({ components, setComponents, onComponentSelect, selectedCompon
   return (
     <div
       ref={drop}
-      className={`flex-1 p-4  min-h-screen relative ${
-        isOver ? "bg-gray-200" : "bg-gray-100"
-      } drag-area`}
+      style={{
+        flex: 1,
+        padding: "20px",
+        border: "1px solid #ccc",
+        minHeight: "100vh",
+        background: isOver ? "#f0f0f0" : "#eeee",
+        position: "relative",
+        backgroundColor: backgroundColor, // Apply the backgroundColor prop here
+      }}
+      className={`drag-area ${isOver ? "hover" : ""} ${backgroundClass}`}
     >
-      {/* <h3 className="text-lg font-semibold">Drag Area</h3> */}
-      <div ref={dropAreaRef} className="relative">
+      <div ref={dropAreaRef} style={{ position: "relative" }}>
         {components.map((component, index) => (
           <DraggableComponent
             key={index}
@@ -187,15 +272,28 @@ const DragArea = ({ components, setComponents, onComponentSelect, selectedCompon
             component={component}
             onComponentSelect={onComponentSelect}
             handleRemoveComponent={handleRemoveComponent}
-            isHovering={index === hoverIndex}
+            setHoverIndex={setHoverIndex}
+            getHoverIndex={getHoverIndex}
+            setComponents={setComponents}
+            components={components}
+            updateHtmlContent={updateHtmlContent}
+            serializeComponent={serializeComponent}
+            deserializeComponent={deserializeComponent}
+            handleDropIntoSection={handleDropIntoSection}
             selectedComponentIndex={selectedComponentIndex}
+            isHovering={index === hoverIndex}
+            handleTextChange={handleTextChange}
           />
         ))}
         {hoverIndex !== null && (
           <div
-            className="absolute left-0 right-0 h-[2px] z-[1]"
             style={{
-              top: `${(hoverIndex / (components.length + 1)) * 100}%`,
+              position: "absolute",
+              top: (hoverIndex / (components.length + 1)) * 100 + "%",
+              left: 0,
+              right: 0,
+              zIndex: 1,
+              backgroundColor: "#000",
             }}
           />
         )}
@@ -209,8 +307,19 @@ const DraggableComponent = ({
   component,
   onComponentSelect,
   handleRemoveComponent,
+  setHoverIndex,
+  getHoverIndex,
+  setComponents,
+  components,
+  updateHtmlContent,
+  serializeComponent,
+  deserializeComponent,
+  handleDropIntoSection,
   isHovering,
   selectedComponentIndex,
+  handleTextChange,
+  handleTextDrop,
+  handleTextDragOver
 }) => {
   const [{ isDragging }, drag] = useDrag({
     type: component.type,
@@ -224,10 +333,8 @@ const DraggableComponent = ({
     <div
       ref={drag}
       onClick={() => onComponentSelect(index)}
-      className={`relative box-border overflow-hidden ${
-        isDragging ? "opacity-50" : "opacity-100"
-      } ${isHovering || index === selectedComponentIndex ? "border-2 border-black" : ""}`}
       style={{
+        position: "relative",
         width: component.width,
         height: component.height,
         backgroundColor: component.backgroundColor,
@@ -250,27 +357,40 @@ const DraggableComponent = ({
         zIndex: index === selectedComponentIndex ? 1 : "auto",
       }}
     >
-      {component.type === "navbar" && <Navbar {...component.props} />}
-      {component.type === "form" && <FormComponent {...component.props} />}
+      {component.type === "navbarStyle1" && <Navbar1 {...component.props} />}
+      {component.type === "navbarStyle2" && <Navbar2 {...component.props} />}
+      {component.type === "navbarStyle3" && <Navbar3 {...component.props} />}
+      {component.type === "navbarStyle4" && <Navbar4 {...component.props} />}
+      {component.type === "navbarStyle5" && <Navbar5 {...component.props} />}
+      {component.type === "templateStyle1" && <Template1 {...component.props} />}
+      {component.type === "templateStyle2" && <Template2 {...component.props} />}
+      {component.type === "templateStyle3" && <Template3 {...component.props} />}
+      {component.type === "templateStyle4" && <Template4 {...component.props} />}
+      {component.type === "templateStyle5" && <Template5 {...component.props} />}
+      {component.type === "formStyle1" && <FormComponent1 {...component.props} />}
+      {component.type === "formStyle2" && <Form2 {...component.props} />}
       {component.type === "image" && <Image {...component.props} />}
+      {component.type === "text" && <TextBoxComponent text={component.text}
+        onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />}
       {component.type === "section" && (
         <Section
-          leftComponent={component.leftComponent}
-          rightComponent={component.rightComponent}
+          leftComponent={
+            component.leftComponent
+              ? deserializeComponent(component.leftComponent)
+              : null
+          }
+          rightComponent={
+            component.rightComponent
+              ? deserializeComponent(component.rightComponent)
+              : null
+          }
+          onDropLeft={(item) => handleDropIntoSection(index, item, "left")}
+          onDropRight={(item) => handleDropIntoSection(index, item, "right")}
         />
       )}
       {component.type === "footer" && <Footer {...component.props} />}
       {component.type === "box" && <Box {...component.props} />}
-      {component.type === "checkbox" && <CheckBox {...component.props} />}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleRemoveComponent(index);
-        }}
-        className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5"
-      >
-        
-      </button>
+      {component.type === "checkbox" && <Checkbox {...component.props} />}
     </div>
   );
 };
