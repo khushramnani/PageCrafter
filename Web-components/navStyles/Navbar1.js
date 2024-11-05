@@ -1,20 +1,22 @@
-import React from 'react';
-import {useState , useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
 const Navbar1 = ({ backgroundColor, textColor, fontSize }) => {
   const backgroundClass = backgroundColor ? `bg-[${backgroundColor}]` : '';
   const textClass = textColor ? `text-[${textColor}]` : '';
   const fontSizeClass = fontSize ? `text-[${fontSize}]` : '';
 
-  const [navbarText, setNavbarText] = useState({
-    brand: 'Navbar',
-    home: 'Home',
-    About: "About",
-    Services: "Services",
-    Pricing: "Pricing",
-    Contact: "Contact",
-    Brand: "PageCrafter",
-    
+  const [navbarText, setNavbarText] = useState(() => {
+    const savedText = JSON.parse(localStorage.getItem('navbar1Text'));
+    return savedText
+      ? savedText
+      : {
+          brand: 'PageCrafter',
+          home: 'Home',
+          about: 'About',
+          services: 'Services',
+          pricing: 'Pricing',
+          contact: 'Contact',
+        };
   });
 
   const [editingKey, setEditingKey] = useState(null); // Track which text is being edited
@@ -22,7 +24,7 @@ const Navbar1 = ({ backgroundColor, textColor, fontSize }) => {
 
   // Load text from local storage when the component mounts
   useEffect(() => {
-    const savedText = JSON.parse(localStorage.getItem('navbarText'));
+    const savedText = JSON.parse(localStorage.getItem('navbar1Text'));
     if (savedText) {
       setNavbarText(savedText);
     }
@@ -30,7 +32,7 @@ const Navbar1 = ({ backgroundColor, textColor, fontSize }) => {
 
   // Save text to local storage whenever it changes
   useEffect(() => {
-    localStorage.setItem('navbarText', JSON.stringify(navbarText));
+    localStorage.setItem('navbar1Text', JSON.stringify(navbarText));
   }, [navbarText]);
 
   // Enable editing for a specific key
@@ -50,113 +52,59 @@ const Navbar1 = ({ backgroundColor, textColor, fontSize }) => {
     setEditingKey(null); // Exit editing mode
   };
 
+  // Handle Enter key press to save the input value
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
+  };
+
   return (
     <nav className={`w-full ${backgroundClass}`}>
       <div className="container mx-auto flex items-center justify-between p-4">
-        <li href="/" className={`flex items-center ${textClass}`}>
-        {editingKey === 'Brand' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline font-bold  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('Brand')} href="#">
-                {navbarText.Brand}
-              </span>
-            )}
-        </li>
+        <span className={`font-bold ${textClass} ${fontSizeClass}`}>
+          {editingKey === 'brand' ? (
+            <input
+              value={inputValue}
+              onChange={handleInputChange}
+              onBlur={handleSave}
+              onKeyPress={handleKeyPress}
+              autoFocus
+              className="w-[50%] p-2 text-black"
+            />
+          ) : (
+            <span onDoubleClick={() => handleDoubleClick('brand')}>
+              {navbarText.brand}
+            </span>
+          )}
+        </span>
+
         <div className="flex">
           <ul className="flex space-x-8">
-            <li className={`${textClass}`}>
-              <li href="#" className={`no-underline ${textClass} ${fontSizeClass}`}>
-              {editingKey === 'home' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('home')} href="#">
-                {navbarText.home}
-              </span>
-            )}
+            {Object.keys(navbarText).slice(1).map((key) => (
+              <li key={key} className={`mr-5 hover:text-gray-900 ${textClass}`}>
+                {editingKey === key ? (
+                  <input
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onBlur={handleSave}
+                    onKeyPress={handleKeyPress}
+                    autoFocus
+                    className="w-[50%] p-2 text-black"
+                  />
+                ) : (
+                  <span onDoubleClick={() => handleDoubleClick(key)}>
+                    {navbarText[key]}
+                  </span>
+                )}
               </li>
-            </li>
-            <li>
-              <li href="#" className={`no-underline ${textClass} ${fontSizeClass}`}>
-              {editingKey === 'About' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('About')} href="#">
-                {navbarText.About}
-              </span>
-            )}
-              </li>
-            </li>
-            <li>
-              <li href="#" className={`no-underline ${textClass} ${fontSizeClass}`}>
-              {editingKey === 'Services' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('Services')} href="#">
-                {navbarText.Services}
-              </span>
-            )}
-              </li>
-            </li>
-            <li>
-              <li href="#" className={`no-underline ${textClass} ${fontSizeClass}`}>
-              {editingKey === 'Pricing' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('Pricing')} href="#">
-                {navbarText.Pricing}
-              </span>
-            )}
-              </li>
-            </li>
-            <li>
-              <li href="#" className={`no-underline ${textClass} ${fontSizeClass}`}>
-              {editingKey === 'Contact' ? (
-                <input
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onBlur={handleSave}
-                  autoFocus
-                  className=" w-[50%] p-2 "
-                />
-              ) : (
-                <span className={`"no-underline  "${textClass}`} aria-current="page" onDoubleClick={() => handleDoubleClick('Contact')} href="#">
-                {navbarText.Contact}
-              </span>
-            )}
-              </li>
-            </li>
+            ))}
           </ul>
         </div>
+
+        <button className="inline-flex items-center text-white bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-black rounded text-base">
+          Get Started
+        </button>
       </div>
     </nav>
   );

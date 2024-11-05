@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '@/constants/ItemTypes';
 
-const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => {
+const Section4 = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => {
   console.log("Rendering Section component");
   console.log("Left component:", leftComponent);
   console.log("Right component:", rightComponent);
@@ -38,10 +38,10 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
 
   return (
     <div style={{ display: 'flex', border: '1px solid #ddd', padding: '10px', boxSizing: 'border-box' }}>
-      <div
+      <div 
         ref={dropLeft}
         style={{
-          flex: 1,
+          flex: 7,
           marginRight: '10px',
           background: isOverLeft ? '#e0e0e0' : 'white',
           padding: '10px',
@@ -54,7 +54,7 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
       <div
         ref={dropRight}
         style={{
-          flex: 1,
+          flex: 3,
           marginLeft: '10px',
           background: isOverRight ? '#e0e0e0' : 'white',
           padding: '10px',
@@ -68,4 +68,4 @@ const Section = ({ leftComponent, rightComponent, onDropLeft, onDropRight }) => 
   );
 };
 
-export default Section;
+export default Section4;

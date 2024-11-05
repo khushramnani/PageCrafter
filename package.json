@@ -20,6 +20,7 @@
     "filesaver": "^0.0.13",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
+    "jszip": "^3.10.1",
     "mongoose": "^8.5.2",
     "next": "14.2.5",
     "next-auth": "^4.24.7",

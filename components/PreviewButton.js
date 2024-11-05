@@ -16,7 +16,15 @@ const PreviewButton = ({ htmlContent, cssContent }) => {
   };
 
   return (
-    <button onClick={handlePreview} className="p-2 text-sm rounded-sm bg-blue-600 text-white" >
+    <button onClick={handlePreview} className="btn btn-primary" style={{
+        margin: '10px',
+        padding: '5px 10px',
+        fontSize: '14px',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+        border: 'none',
+        color: '#fff',
+      }}>
       Preview
     </button>
   );

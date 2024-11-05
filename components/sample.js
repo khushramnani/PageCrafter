@@ -3,7 +3,7 @@ import { useDrop, useDrag } from "react-dnd";
 import Navbar from "./Navbar";
 import FormComponent from "./FormComponent";
 import Image from "./Image";
-import Section from "./Section";
+import Section from "../Web-components/Section";
 import Footer from "./Footer";
 import Box from "./Box";
 import axios from "axios";

@@ -1,15 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDrop, useDrag } from "react-dnd";
-import Image from "@/Web-components/Image";
-import Section from "@/components/Section";
-import Footer from "@/Web-components/Footer";
+import Image from "@/Web-components/Image-componets/Image";
+import Images2 from "@/Web-components/Image-componets/Image2";
+import Image3 from "@/Web-components/Image-componets/Image3";
+import Image4 from "@/Web-components/Image-componets/Image4";
+import Section from "@/Web-components/Section";
+import Section2 from "@/Web-components/Section2";
+import Section3 from "@/Web-components/Section3";
+import Section4 from "@/Web-components/Section4";
+import Footer from "@/Web-components/footerStyles/Footer";
+import Footer2 from "@/Web-components/footerStyles/Footer2";
 import Box from "@/Web-components/Box";
 import axios from "axios";
-import TextComponent from "@/Web-components/TextComponent";
+import TextComponent from "@/Web-components/Text-Components/TextComponent";
+import TextComponent2 from "@/Web-components/Text-Components/TextComponent2";
 import { Checkbox } from "flowbite-react";
 import Navbar1 from "@/Web-components/navStyles/Navbar1";
 import Navbar2 from "@/Web-components/navStyles/Navbar2";
 import Navbar3 from "@/Web-components/navStyles/Navbar3";
+import Navbar4 from "@/Web-components/navStyles/Navbar4";
 import FormComponent from "@/Web-components/formStyles/FormComponent1";
 import Template1 from "@/Web-components/templateStyles/template1";
 import Template2 from "@/Web-components/templateStyles/template2";
@@ -19,17 +28,35 @@ import Template5 from "@/Web-components/templateStyles/template5";
 
 import FormComponent1 from "@/Web-components/formStyles/FormComponent1";
 import Form2 from "@/Web-components/formStyles/Form2";
-import TextBoxComponent from "@/Web-components/TextComponent";
+import Form3 from "@/Web-components/formStyles/Form3";
+import TextBoxComponent from "@/Web-components/Text-Components/TextComponent";
+import ParagraphComponent from "@/Web-components/Paragraph";
+import BlogCard from "@/Web-components/BlogCard";
+import BlogSection from "@/Web-components/BlogSection";
+import BlogSection2 from "@/Web-components/BlogSection2";
+// import { ItemTypes } from "@/constants/ItemTypes";
 
 const ItemTypes = {
   NAVBAR: "navbar",
   FORM: "form",
   IMAGE: "image",
+  IMAGE2: "image2",
+  IMAGE3: "image3",
+  IMAGE4: "image4",
   SECTION: "section",
+  SECTION2: "section2",
+  SECTION3: "section3",
+  SECTION4: "section4",
   FOOTER: "footer",
+  FOOTER2: "footer2",
   BOX: "box",
   CHECKBOX: "checkbox",
   TEXT: 'text',
+  TEXT2: 'text2',
+  BlogSection: 'blogsection',
+  BlogSection2: 'blogsection2',
+  Paragraph: 'paragraph',
+
 
   NAVBARSTYLE1: "navbarStyle1",
   NAVBARSTYLE2: "navbarStyle2",
@@ -73,6 +100,42 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
       setComponents(newComponents);
     }
   };
+  const handleDropIntoSection2 = (sectionIndex, item, side) => {
+    const newComponents = [...components];
+    const component = newComponents[sectionIndex];
+    if (component && component.type === "section2") {
+      if (side === "left") {
+        component.leftComponent = serializeComponent(item);
+      } else {
+        component.rightComponent = serializeComponent(item);
+      }
+      setComponents(newComponents);
+    }
+  };
+  const handleDropIntoSection3 = (sectionIndex, item, side) => {
+    const newComponents = [...components];
+    const component = newComponents[sectionIndex];
+    if (component && component.type === "section3") {
+      if (side === "left") {
+        component.leftComponent = serializeComponent(item);
+      } else {
+        component.rightComponent = serializeComponent(item);
+      }
+      setComponents(newComponents);
+    }
+  };
+  const handleDropIntoSection4 = (sectionIndex, item, side) => {
+    const newComponents = [...components];
+    const component = newComponents[sectionIndex];
+    if (component && component.type === "section4") {
+      if (side === "left") {
+        component.leftComponent = serializeComponent(item);
+      } else {
+        component.rightComponent = serializeComponent(item);
+      }
+      setComponents(newComponents);
+    }
+  };
 
   const handleTextChange = (id, newText) => {
     setComponents((prevComponents) =>
@@ -99,7 +162,14 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
         return <Navbar4 {...component.props} />;
       case "navbarStyle5":
         return <Navbar5 {...component.props} />;
+      
+      case "blogsection":
+        return <BlogSection {...component.props} />;
+      case "blogsection2":
+        return <BlogSection2 {...component.props} />;
 
+        case "paragraph":
+          return <ParagraphComponent {...component.props} />;
 
       case "templateStyle1":
         return <Template1 {...component.props} />;
@@ -117,11 +187,22 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
         return <FormComponent1 {...component.props} />;
       case "formStyle2":
         return <Form2 {...component.props} />;
+      case "formStyle3":
+        return <Form3 {...component.props} />;
       case "text":
-        return <TextBoxComponent text={component.text}
+        return <TextComponent text={component.text}
+          onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />;
+      case "text2":
+        return <TextComponent2 text={component.text}
           onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />;
       case "image":
         return <Image {...component.props} />;
+      case "image2":
+        return <Images2 {...component.props} />;
+      case "image3":
+        return <Image3 {...component.props} />;
+      case "image4":
+        return <Image4 {...component.props} />;
       case "section":
         return (
           <Section
@@ -143,12 +224,78 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
             }
           />
         );
+      case "section2":
+        return (
+          <Section2
+            leftComponent={
+              component.leftComponent
+                ? deserializeComponent(component.leftComponent)
+                : null
+            }
+            rightComponent={
+              component.rightComponent
+                ? deserializeComponent(component.rightComponent)
+                : null
+            }
+            onDropLeft={(item) =>
+              handleDropIntoSection2(component.index, item, "left")
+            }
+            onDropRight={(item) =>
+              handleDropIntoSection2(component.index, item, "right")
+            }
+          />
+        );
+      case "section3":
+        return (
+          <Section3
+            leftComponent={
+              component.leftComponent
+                ? deserializeComponent(component.leftComponent)
+                : null
+            }
+            rightComponent={
+              component.rightComponent
+                ? deserializeComponent(component.rightComponent)
+                : null
+            }
+            onDropLeft={(item) =>
+              handleDropIntoSection3(component.index, item, "left")
+            }
+            onDropRight={(item) =>
+              handleDropIntoSection3(component.index, item, "right")
+            }
+          />
+        );
+      case "section4":
+        return (
+          <Section4
+            leftComponent={
+              component.leftComponent
+                ? deserializeComponent(component.leftComponent)
+                : null
+            }
+            rightComponent={
+              component.rightComponent
+                ? deserializeComponent(component.rightComponent)
+                : null
+            }
+            onDropLeft={(item) =>
+              handleDropIntoSection4(component.index, item, "left")
+            }
+            onDropRight={(item) =>
+              handleDropIntoSection4(component.index, item, "right")
+            }
+          />
+        );
       case "footer":
         return <Footer {...component.props} />;
+      case "footer2":
+        return <Footer2 {...component.props} />;
       case "box":
         return <Box {...component.props} />;
       case "checkbox":
         return <Checkbox {...component.props} />;
+     
       default:
         return null;
     }
@@ -280,6 +427,9 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
             serializeComponent={serializeComponent}
             deserializeComponent={deserializeComponent}
             handleDropIntoSection={handleDropIntoSection}
+            handleDropIntoSection2={handleDropIntoSection2}
+            handleDropIntoSection3={handleDropIntoSection3}
+            handleDropIntoSection4={handleDropIntoSection4}
             selectedComponentIndex={selectedComponentIndex}
             isHovering={index === hoverIndex}
             handleTextChange={handleTextChange}
@@ -315,6 +465,9 @@ const DraggableComponent = ({
   serializeComponent,
   deserializeComponent,
   handleDropIntoSection,
+  handleDropIntoSection2,
+  handleDropIntoSection3,
+  handleDropIntoSection4,
   isHovering,
   selectedComponentIndex,
   handleTextChange,
@@ -362,6 +515,10 @@ const DraggableComponent = ({
       {component.type === "navbarStyle3" && <Navbar3 {...component.props} />}
       {component.type === "navbarStyle4" && <Navbar4 {...component.props} />}
       {component.type === "navbarStyle5" && <Navbar5 {...component.props} />}
+
+      {component.type === "blogcard" && <BlogCard {...component.props} />}
+      {component.type === "blogsection" && <BlogSection {...component.props} />}
+      {component.type === "blogsection2" && <BlogSection2 {...component.props} />}
       {component.type === "templateStyle1" && <Template1 {...component.props} />}
       {component.type === "templateStyle2" && <Template2 {...component.props} />}
       {component.type === "templateStyle3" && <Template3 {...component.props} />}
@@ -369,8 +526,17 @@ const DraggableComponent = ({
       {component.type === "templateStyle5" && <Template5 {...component.props} />}
       {component.type === "formStyle1" && <FormComponent1 {...component.props} />}
       {component.type === "formStyle2" && <Form2 {...component.props} />}
+      {component.type === "formStyle3" && <Form3 {...component.props} />}
       {component.type === "image" && <Image {...component.props} />}
-      {component.type === "text" && <TextBoxComponent text={component.text}
+      {component.type === "image2" && <Images2 {...component.props} />}
+      {component.type === "image3" && <Image3 {...component.props} />}
+      {component.type === "image4" && <Image4 {...component.props} />}
+      
+      {component.type === "paragraph" && <ParagraphComponent {...component.props} />}
+
+      {component.type === "text" && <TextComponent text={component.text}
+        onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />}
+      {component.type === "text2" && <TextComponent2 text={component.text}
         onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />}
       {component.type === "section" && (
         <Section
@@ -388,7 +554,56 @@ const DraggableComponent = ({
           onDropRight={(item) => handleDropIntoSection(index, item, "right")}
         />
       )}
+      {component.type === "section2" && (
+        <Section2
+          leftComponent={
+            component.leftComponent
+              ? deserializeComponent(component.leftComponent)
+              : null
+          }
+          rightComponent={
+            component.rightComponent
+              ? deserializeComponent(component.rightComponent)
+              : null
+          }
+          onDropLeft={(item) => handleDropIntoSection2(index, item, "left")}
+          onDropRight={(item) => handleDropIntoSection2(index, item, "right")}
+        />
+      )}
+      {component.type === "section3" && (
+        <Section3
+          leftComponent={
+            component.leftComponent
+              ? deserializeComponent(component.leftComponent)
+              : null
+          }
+          rightComponent={
+            component.rightComponent
+              ? deserializeComponent(component.rightComponent)
+              : null
+          }
+          onDropLeft={(item) => handleDropIntoSection3(index, item, "left")}
+          onDropRight={(item) => handleDropIntoSection3(index, item, "right")}
+        />
+      )}
+      {component.type === "section4" && (
+        <Section4
+          leftComponent={
+            component.leftComponent
+              ? deserializeComponent(component.leftComponent)
+              : null
+          }
+          rightComponent={
+            component.rightComponent
+              ? deserializeComponent(component.rightComponent)
+              : null
+          }
+          onDropLeft={(item) => handleDropIntoSection4(index, item, "left")}
+          onDropRight={(item) => handleDropIntoSection4(index, item, "right")}
+        />
+      )}
       {component.type === "footer" && <Footer {...component.props} />}
+      {component.type === "footer2" && <Footer2 {...component.props} />}
       {component.type === "box" && <Box {...component.props} />}
       {component.type === "checkbox" && <Checkbox {...component.props} />}
     </div>

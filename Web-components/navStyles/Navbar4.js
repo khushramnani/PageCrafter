@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
+const Navbar_4 = ({ backgroundColor, textColor, fontSize }) => {
   const backgroundClass = backgroundColor ? `bg-[${backgroundColor}]` : '';
   const textClass = textColor ? `text-[${textColor}]` : '';
   const fontSizeClass = fontSize ? `text-[${fontSize}]` : '';
 
   const [navbarText, setNavbarText] = useState(() => {
-    const savedText = JSON.parse(localStorage.getItem('navbar2Text'));
+    const savedText = JSON.parse(localStorage.getItem('navbar4Text'));
     return savedText ? savedText : {
-      brand: 'PageCrafter',
+      brand: 'Tailblocks',
       firstLink: 'First Link',
       secondLink: 'Second Link',
       thirdLink: 'Third Link',
@@ -16,40 +16,34 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
     };
   });
 
-  const [editingKey, setEditingKey] = useState(null); // Track which text is being edited
-  const [inputValue, setInputValue] = useState(''); // Track the value of the input while editing
+  const [editingKey, setEditingKey] = useState(null);
+  const [inputValue, setInputValue] = useState('');
 
-  // Load text from local storage when the component mounts
   useEffect(() => {
-    const savedText = JSON.parse(localStorage.getItem('navbar2Text'));
+    const savedText = JSON.parse(localStorage.getItem('navbar4Text'));
     if (savedText) {
       setNavbarText(savedText);
     }
   }, []);
 
-  // Save text to local storage whenever it changes
   useEffect(() => {
-    localStorage.setItem('navbar2Text', JSON.stringify(navbarText));
+    localStorage.setItem('navbar4Text', JSON.stringify(navbarText));
   }, [navbarText]);
 
-  // Enable editing for a specific key
   const handleDoubleClick = (key) => {
     setEditingKey(key);
-    setInputValue(navbarText[key]); // Set the current value of the input field
+    setInputValue(navbarText[key]);
   };
 
-  // Handle input change
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  // Save the edited value on blur or Enter key
   const handleSave = () => {
     setNavbarText((prev) => ({ ...prev, [editingKey]: inputValue }));
-    setEditingKey(null); // Exit editing mode
+    setEditingKey(null);
   };
 
-  // Handle Enter key press to save the input value
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSave();
@@ -58,29 +52,13 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
 
   return (
     <>
-      <header className={`body-font ${backgroundClass} ${textClass} ${fontSizeClass}`}>
-        <div className={`container mx-auto flex flex-wrap p-3 flex-row items-center justify-between w-full ${backgroundClass} ${textClass} ${fontSizeClass}`}>
-          <span className={`flex font-bold items-center ${textClass} ${fontSizeClass}`}>
-            {editingKey === 'brand' ? (
-              <input
-                value={inputValue}
-                onChange={handleInputChange}
-                onBlur={handleSave}
-                onKeyPress={handleKeyPress}
-                autoFocus
-                className="w-[50%] p-2 text-black"
-              />
-            ) : (
-              <span
-                className="ml-3 text-xl"
-                onDoubleClick={() => handleDoubleClick('brand')}
-              >
-                {navbarText.brand}
-              </span>
-            )}
-          </span>
-          <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
-            <span className={`mr-5 ${textClass}`}>
+      <header className={` ${backgroundClass} ${textClass} ${fontSizeClass}`}>
+        <div className={`"container mx-auto flex flex-wrap  items-center border-b-2 border-gray-200"${backgroundClass} ${textClass} ${fontSizeClass}`}>
+
+
+          {/* Nav Links Section */}
+          <nav className={`"md:ml-auto flex flex-wrap items-center gap-3 justify-center"${backgroundClass} ${textClass} ${fontSizeClass}`}>
+            <span className=" hover:text-gray-900 transition-all duration-300">
               {editingKey === 'firstLink' ? (
                 <input
                   value={inputValue}
@@ -88,7 +66,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                   onBlur={handleSave}
                   onKeyPress={handleKeyPress}
                   autoFocus
-                  className="w-[50%] p-2 text-black"
+                  className="border-b-2 border-indigo-500 focus:outline-none"
                 />
               ) : (
                 <span onDoubleClick={() => handleDoubleClick('firstLink')}>
@@ -96,7 +74,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                 </span>
               )}
             </span>
-            <span className={`mr-5 hover:text-gray-900`}>
+            <span className=" hover:text-gray-900 transition-all duration-300">
               {editingKey === 'secondLink' ? (
                 <input
                   value={inputValue}
@@ -104,7 +82,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                   onBlur={handleSave}
                   onKeyPress={handleKeyPress}
                   autoFocus
-                  className="w-[50%] p-2 text-black"
+                  className="border-b-2 border-indigo-500 focus:outline-none"
                 />
               ) : (
                 <span onDoubleClick={() => handleDoubleClick('secondLink')}>
@@ -112,7 +90,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                 </span>
               )}
             </span>
-            <span className={`mr-5 hover:text-gray-900`}>
+            <span className="  transition-all duration-300">
               {editingKey === 'thirdLink' ? (
                 <input
                   value={inputValue}
@@ -120,7 +98,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                   onBlur={handleSave}
                   onKeyPress={handleKeyPress}
                   autoFocus
-                  className="w-[50%] p-2 text-black"
+                  className="border-b-2 border-indigo-500 focus:outline-none"
                 />
               ) : (
                 <span onDoubleClick={() => handleDoubleClick('thirdLink')}>
@@ -128,7 +106,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                 </span>
               )}
             </span>
-            <span className={`mr-5 hover:text-gray-900`}>
+            <span className="hover:text-gray-900 transition-all duration-300">
               {editingKey === 'fourthLink' ? (
                 <input
                   value={inputValue}
@@ -136,7 +114,7 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
                   onBlur={handleSave}
                   onKeyPress={handleKeyPress}
                   autoFocus
-                  className="w-[50%] p-2 text-black"
+                  className="border-b-2 border-indigo-500 focus:outline-none"
                 />
               ) : (
                 <span onDoubleClick={() => handleDoubleClick('fourthLink')}>
@@ -145,8 +123,42 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
               )}
             </span>
           </nav>
-          <button className="inline-flex items-center text-white bg-blue-500 border-0 py-1 px-3 focus:outline-none hover:bg-black rounded text-base md:mt-0">
-            Get Started
+
+                    {/* Branding Section */}
+                    <span className="flex items-center title-font font-medium  p-12">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span className="ml-3 ">
+              {editingKey === 'brand' ? (
+                <input
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onBlur={handleSave}
+                  onKeyPress={handleKeyPress}
+                  autoFocus
+                  className="border-b-2 border-indigo-500 focus:outline-none"
+                />
+              ) : (
+                <span onDoubleClick={() => handleDoubleClick('brand')}>
+                  {navbarText.brand}
+                </span>
+              )}
+            </span>
+          </span>
+
+          {/* Button Section */}
+          <button className="ml-auto inline-flex items-center bg-indigo-500 text-white border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg transition-all duration-300">
+            Button
             <svg
               fill="none"
               stroke="currentColor"
@@ -165,4 +177,4 @@ const Navbar_2 = ({ backgroundColor, textColor, fontSize }) => {
   );
 };
 
-export default Navbar_2;
+export default Navbar_4;

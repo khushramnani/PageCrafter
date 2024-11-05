@@ -1,16 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 
 const SaveButton = ({ components }) => {
-  const { data: session } = useSession();
-
   const handleSave = async () => {
     try {
-      await axios.post('http://localhost:5000/api/save-layout', {
-        components,
-        user: session?.user?.email, // Save user's email or ID to associate the layout
-      });
+      await axios.post('http://localhost:5000/api/save-layout', { components });
       alert('Layout saved successfully!');
     } catch (error) {
       console.error('Error saving layout:', error);
@@ -19,7 +13,15 @@ const SaveButton = ({ components }) => {
   };
 
   return (
-    <button onClick={handleSave} style={{ margin: '10px', padding: '10px' }}>
+    <button onClick={handleSave} style={{
+        padding: '5px 10px',
+        fontSize: '14px',
+        border:'solid 1px',
+        borderRadius: '4px',
+        backgroundColor: '#282c34',
+        borderColor:'white',
+        color: '#fff',
+      }}>
       Save Layout
     </button>
   );

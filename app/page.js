@@ -366,6 +366,31 @@ const Home = () => {
           </div>
         </section>
 
+{/* static  */}
+        <section className={'flex  sm:mx-auto w-full flex-col md:px-12 xl:px-12   pt-10  bg-black'}>
+        <div
+            id="title"
+            className="flex flex-col w-full items-center justify-center  md:pb-16 text-white"
+          >
+            <h2 className="sm:font-semibold font-semibold  text-3xl sm:text-4xl md:text-6xl headland-one-regular text-gray-300 text-center sm:text-left xl:text-6xl">
+              Host Your Site Here
+            </h2>
+            <h4 className="font-mono text-xl pt-3">We are happy to tell you that You can also host then project you just made ..
+
+</h4>
+          </div>
+
+          <div className="flex items-center justify-center flex-col pb-8">
+                <p className={'text-xl text-white text-center w-[60%] '}>Static.app is a simple platform for hosting static websites, enabling users to upload files via drag-and-drop. It provides free SSL certificates, a built-in code editor, and media storage, making it ideal for personal projects or small websites. Designed for ease of use, it caters to both developers and designers looking for efficient website management.</p>
+                <Link href={'https://static.app/'}>
+                <button className="p-4 bg-blue-700 text-white rounded-lg mb-5">
+                Host Now
+              </button>
+                </Link>
+          </div>
+
+        </section>
+
         {/* Circle animation */}
         <div className="flex justify-center items-center h-screen bg-black p-32 pt-80">
           <div className="relative flex justify-center items-center">

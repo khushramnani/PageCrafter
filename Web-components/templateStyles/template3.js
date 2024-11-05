@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 
 // Editable Navbar Component
 const Navbar = ({ backgroundClass, textClass }) => {
-  const [TextEdit, setText] = useState({
-    brand: 'Luxury Brand',
-    Home: 'Home',
-    About: "About",
-    Products: "Products",
-    Contact: "Contact",
+  const [TextEdit, setText] = useState(() => {
+    const savedText = JSON.parse(localStorage.getItem('NavbarTextEdit'));
+    return savedText || {
+      brand: 'Luxury Brand',
+      Home: 'Home',
+      About: 'About',
+      Products: 'Products',
+      Contact: 'Contact',
+    };
   });
 
   const [editingKey, setEditingKey] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
+  // Load text from local storage when the component mounts
   useEffect(() => {
     const savedText = JSON.parse(localStorage.getItem('NavbarTextEdit'));
     if (savedText) {
@@ -20,22 +24,35 @@ const Navbar = ({ backgroundClass, textClass }) => {
     }
   }, []);
 
+  // Save text to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('NavbarTextEdit', JSON.stringify(TextEdit));
   }, [TextEdit]);
 
+  // Enable editing for a specific key
   const handleDoubleClick = (key) => {
     setEditingKey(key);
-    setInputValue(TextEdit[key]);
+    setInputValue(TextEdit[key]); // Set the current value of the input field
   };
 
+  // Handle input change
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
+  // Save the edited value on blur or Enter key
   const handleSave = () => {
-    setText((prev) => ({ ...prev, [editingKey]: inputValue }));
-    setEditingKey(null);
+    if (inputValue.trim() !== '') {
+      setText((prev) => ({ ...prev, [editingKey]: inputValue }));
+      setEditingKey(null); // Exit editing mode
+    }
+  };
+
+  // Handle Enter key press to save the input value
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
   };
 
   return (
@@ -46,6 +63,7 @@ const Navbar = ({ backgroundClass, textClass }) => {
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleSave}
+            onKeyPress={handleKeyPress}
             autoFocus
             className="text-black p-2"
           />
@@ -69,6 +87,7 @@ const Navbar = ({ backgroundClass, textClass }) => {
                   value={inputValue}
                   onChange={handleInputChange}
                   onBlur={handleSave}
+                  onKeyPress={handleKeyPress}
                   autoFocus
                   className="text-black p-2"
                 />
@@ -85,13 +104,18 @@ const Navbar = ({ backgroundClass, textClass }) => {
 
 // Editable Hero Section
 const HeroSection = ({ textClass }) => {
-  const [heroText, setHeroText] = useState({
-    title: 'Timeless Elegance & Modern Sophistication',
-    description: 'Discover the perfect balance of style and luxury.',
+  const [heroText, setHeroText] = useState(() => {
+    const savedText = JSON.parse(localStorage.getItem('HeroTextEdit'));
+    return savedText || {
+      title: 'Timeless Elegance & Modern Sophistication',
+      description: 'Discover the perfect balance of style and luxury.',
+    };
   });
+  
   const [editingKey, setEditingKey] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
+  // Load text from local storage when the component mounts
   useEffect(() => {
     const savedText = JSON.parse(localStorage.getItem('HeroTextEdit'));
     if (savedText) {
@@ -99,22 +123,35 @@ const HeroSection = ({ textClass }) => {
     }
   }, []);
 
+  // Save text to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('HeroTextEdit', JSON.stringify(heroText));
   }, [heroText]);
 
+  // Enable editing for a specific key
   const handleDoubleClick = (key) => {
     setEditingKey(key);
-    setInputValue(heroText[key]);
+    setInputValue(heroText[key]); // Set the current value of the input field
   };
 
+  // Handle input change
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
+  // Save the edited value on blur or Enter key
   const handleSave = () => {
-    setHeroText((prev) => ({ ...prev, [editingKey]: inputValue }));
-    setEditingKey(null);
+    if (inputValue.trim() !== '') {
+      setHeroText((prev) => ({ ...prev, [editingKey]: inputValue }));
+      setEditingKey(null); // Exit editing mode
+    }
+  };
+
+  // Handle Enter key press to save the input value
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
   };
 
   return (
@@ -130,6 +167,7 @@ const HeroSection = ({ textClass }) => {
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleSave}
+            onKeyPress={handleKeyPress}
             autoFocus
             className="text-black text-6xl font-bold mb-6 leading-tight"
           />
@@ -146,6 +184,7 @@ const HeroSection = ({ textClass }) => {
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleSave}
+            onKeyPress={handleKeyPress}
             autoFocus
             className="text-black text-lg mb-8"
           />
@@ -164,34 +203,33 @@ const HeroSection = ({ textClass }) => {
     </section>
   );
 };
-
 // Editable Features Section
 // Editable Features Section
 const FeaturesSection = ({ textClass }) => {
-  const [featuresText, setFeaturesText] = useState({
-    title: 'Why Choose Us?',
-    description: 'Luxury that speaks for itself, crafted for those who know the value of elegance.',
-    features: [
-      { title: 'Premium Quality', description: 'Crafted from the finest materials.' },
-      { title: 'Timeless Design', description: 'Blending classic beauty with modern functionality.' },
-      { title: 'Exclusive Collections', description: 'Unique collections for exquisite tastes.' },
-    ],
+  const [featuresText, setFeaturesText] = useState(() => {
+    const savedText = JSON.parse(localStorage.getItem('FeaturesTextEdit'));
+    return (
+      savedText || {
+        title: 'Why Choose Us?',
+        description: 'Luxury that speaks for itself, crafted for those who know the value of elegance.',
+        features: [
+          { title: 'Premium Quality', description: 'Crafted from the finest materials.' },
+          { title: 'Timeless Design', description: 'Blending classic beauty with modern functionality.' },
+          { title: 'Exclusive Collections', description: 'Unique collections for exquisite tastes.' },
+        ],
+      }
+    );
   });
 
   const [editingKey, setEditingKey] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    const savedText = JSON.parse(localStorage.getItem('FeaturesTextEdit'));
-    if (savedText) {
-      setFeaturesText(savedText);
-    }
-  }, []);
-
+  // Save text to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('FeaturesTextEdit', JSON.stringify(featuresText));
   }, [featuresText]);
 
+  // Enable editing for a specific key
   const handleDoubleClick = (key) => {
     setEditingKey(key);
     const [section, index, field] = key.split('_');
@@ -202,10 +240,12 @@ const FeaturesSection = ({ textClass }) => {
     }
   };
 
+  // Handle input change
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
+  // Save the edited value on blur or Enter key
   const handleSave = () => {
     const [section, index, field] = editingKey.split('_');
     if (section === 'feature') {
@@ -217,7 +257,14 @@ const FeaturesSection = ({ textClass }) => {
     } else {
       setFeaturesText((prev) => ({ ...prev, [editingKey]: inputValue }));
     }
-    setEditingKey(null);
+    setEditingKey(null); // Exit editing mode
+  };
+
+  // Handle Enter key press to save the input value
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
   };
 
   return (
@@ -228,6 +275,7 @@ const FeaturesSection = ({ textClass }) => {
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleSave}
+            onKeyPress={handleKeyPress}
             autoFocus
             className="text-black text-4xl font-semibold mb-4"
           />
@@ -244,6 +292,7 @@ const FeaturesSection = ({ textClass }) => {
             value={inputValue}
             onChange={handleInputChange}
             onBlur={handleSave}
+            onKeyPress={handleKeyPress}
             autoFocus
             className="text-black"
           />
@@ -260,7 +309,7 @@ const FeaturesSection = ({ textClass }) => {
         {featuresText.features.map((feature, index) => (
           <div
             key={index}
-            className=" p-8 rounded-lg shadow-md"
+            className="p-8 rounded-lg shadow-md"
           >
             <h3
               className="text-2xl font-bold mb-3"
@@ -271,6 +320,7 @@ const FeaturesSection = ({ textClass }) => {
                   value={inputValue}
                   onChange={handleInputChange}
                   onBlur={handleSave}
+                  onKeyPress={handleKeyPress}
                   autoFocus
                   className="text-black"
                 />
@@ -287,6 +337,7 @@ const FeaturesSection = ({ textClass }) => {
                   value={inputValue}
                   onChange={handleInputChange}
                   onBlur={handleSave}
+                  onKeyPress={handleKeyPress}
                   autoFocus
                   className="text-black"
                 />
@@ -300,7 +351,6 @@ const FeaturesSection = ({ textClass }) => {
     </section>
   );
 };
-
 
 
 
