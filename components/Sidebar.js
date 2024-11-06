@@ -71,6 +71,7 @@ const Sidebar = ({
                         src={"/assets/Nav-styles/Navbar1.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="navbarStyle2">
@@ -78,6 +79,7 @@ const Sidebar = ({
                         src={"/assets/Nav-styles/Navbar2.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="navbarStyle3">
@@ -85,6 +87,7 @@ const Sidebar = ({
                         src={"/assets/Nav-styles/Navbar3.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="navbarStyle4">
@@ -92,6 +95,7 @@ const Sidebar = ({
                         src={"/assets/Nav-styles/Navbar4.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     {/* <DraggableItem type="navbarStyle5"><Image src={'/assets/Nav-styles/Navbar1.png'} width={120} height={120}  /></DraggableItem> */}
@@ -117,6 +121,7 @@ const Sidebar = ({
                         src={"/assets/Form-styles/Form1.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="formStyle2">
@@ -124,6 +129,7 @@ const Sidebar = ({
                         src={"/assets/Form-styles/Form2.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="formStyle3">
@@ -131,6 +137,7 @@ const Sidebar = ({
                         src={"/assets/Form-styles/Form3.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                   </div>
@@ -209,6 +216,7 @@ const Sidebar = ({
                         src={"/assets/Footer-Styles/footer1.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                     <DraggableItem type="footer2">
@@ -216,6 +224,7 @@ const Sidebar = ({
                         src={"/assets/Footer-Styles/footer2.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />
                     </DraggableItem>
                   </div>
@@ -242,6 +251,7 @@ const Sidebar = ({
                         src={"/assets/Form-styles/Blog1.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />{" "}
                     </DraggableItem>{" "}
                     {/* Draggable Footer item */}
@@ -253,6 +263,7 @@ const Sidebar = ({
                         src={"/assets/Form-styles/Blog1.png"}
                         width={120}
                         height={120}
+                        alt={""}
                       />{" "}
                     </DraggableItem>{" "}
                     {/* Draggable Footer item */}
@@ -282,6 +293,7 @@ const Sidebar = ({
                         }
                         width={120}
                         height={120}
+                        alt={""}
                       />{" "}
                     </DraggableItem>
                     <DraggableItem type="image4" className="">
@@ -291,6 +303,8 @@ const Sidebar = ({
                         }
                         width={120}
                         height={50}
+                        alt=  "image"
+
                       />{" "}
                     </DraggableItem>
                   </div>

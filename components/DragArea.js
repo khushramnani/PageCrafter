@@ -160,8 +160,7 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
         return <Navbar3 {...component.props} />;
       case "navbarStyle4":
         return <Navbar4 {...component.props} />;
-      case "navbarStyle5":
-        return <Navbar5 {...component.props} />;
+      
       
       case "blogsection":
         return <BlogSection {...component.props} />;
@@ -196,13 +195,13 @@ const DragArea = ({ backgroundColor, components, setComponents, onComponentSelec
         return <TextComponent2 text={component.text}
           onTextChange={(newText) => handleTextChange(index, newText)} {...component.props} />;
       case "image":
-        return <Image {...component.props} />;
+        return <Image {...component.props} alt={""} />;
       case "image2":
-        return <Images2 {...component.props} />;
+        return <Images2 {...component.props} alt={""} />;
       case "image3":
-        return <Image3 {...component.props} />;
+        return <Image3 {...component.props} alt={""} />;
       case "image4":
-        return <Image4 {...component.props} />;
+        return <Image4 {...component.props} alt={""} />;
       case "section":
         return (
           <Section
@@ -514,7 +513,6 @@ const DraggableComponent = ({
       {component.type === "navbarStyle2" && <Navbar2 {...component.props} />}
       {component.type === "navbarStyle3" && <Navbar3 {...component.props} />}
       {component.type === "navbarStyle4" && <Navbar4 {...component.props} />}
-      {component.type === "navbarStyle5" && <Navbar5 {...component.props} />}
 
       {component.type === "blogcard" && <BlogCard {...component.props} />}
       {component.type === "blogsection" && <BlogSection {...component.props} />}
@@ -527,10 +525,10 @@ const DraggableComponent = ({
       {component.type === "formStyle1" && <FormComponent1 {...component.props} />}
       {component.type === "formStyle2" && <Form2 {...component.props} />}
       {component.type === "formStyle3" && <Form3 {...component.props} />}
-      {component.type === "image" && <Image {...component.props} />}
-      {component.type === "image2" && <Images2 {...component.props} />}
-      {component.type === "image3" && <Image3 {...component.props} />}
-      {component.type === "image4" && <Image4 {...component.props} />}
+      {component.type === "image" && <Image {...component.props} alt={""} />}
+      {component.type === "image2" && <Images2 {...component.props} alt={""} />}
+      {component.type === "image3" && <Image3 {...component.props} alt={""} />}
+      {component.type === "image4" && <Image4 {...component.props} alt={""} />}
       
       {component.type === "paragraph" && <ParagraphComponent {...component.props} />}
 

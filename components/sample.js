@@ -52,7 +52,7 @@ const DragArea = ({ components, setComponents, onComponentSelect, setHtmlContent
       case "form":
         return <FormComponent {...component.props} />;
       case "image":
-        return <Image {...component.props} />;
+        return <Image {...component.props} alt={""} />;
       case "section":
         return (
           <Section

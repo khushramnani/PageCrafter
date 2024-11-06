@@ -75,7 +75,7 @@ const authOptions = {
     signIn: "/auth/signin",
     error: "/auth/error", // Redirect here on error
   },
-  debug: true,
+  debug: false,
 };
 
 const handler = (req, res) => NextAuth(req, res, authOptions);
