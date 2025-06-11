@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { date, string } from "zod/v4";
 
 export interface User extends Document {
   email: string;
@@ -8,17 +9,20 @@ export interface User extends Document {
   createdAt: Date;
   updatedAt: Date;
   profilePicture: string;
-  clerkId: string;
   credits: number;
+  verifyCodeExpiry:Date;
+  verifyCode: string
 }
 
 const userSchema = new Schema<User>(
   {
-    clerkId: { type: String, required: true, unique: true },
+    
     username: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: false },
-    isVerified: { type: Boolean, default: false },
+    isVerified: { type: Boolean, required: false },
+    verifyCode: {type: String , required:false },
+    verifyCodeExpiry:{type:Date , required:false },
     profilePicture: { type: String, default: "" },
     credits: { type: Number, default: 0 },
   },
