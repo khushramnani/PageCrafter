@@ -17,8 +17,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { loginUserSchema } from '@/schemas/userSchema'
-import { Loader2, ArrowLeft } from 'lucide-react'
+import { Loader2, ArrowLeft, Github } from 'lucide-react'
 import { useState } from 'react'
+import { IconBrandGoogle } from '@tabler/icons-react'
 
 export default function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -149,6 +150,27 @@ export default function SignInForm() {
                 'Dive In'
               )}
             </Button>
+            <hr />
+            or
+              <div className="flex flex-col space-y-4">
+                                      <button
+                                        className="relative flex h-12 w-full items-center justify-start space-x-2 rounded-lg bg-gray-800/50 text-white hover:bg-gray-700/50 transition-all duration-300"
+                                        name="action"
+                                        value="github"
+                                      >
+                                        <Github className="h-5 w-5 text-gray-300" />
+                                        <span className="text-sm font-medium">Sign up with GitHub</span>
+                                        
+                                      </button>
+                                      <button
+                                        className="relative flex h-12 w-full items-center justify-start space-x-2 rounded-lg bg-gray-800/50 text-white hover:bg-gray-700/50 transition-all duration-300"
+                                        onClick={() => signIn('google',{ callbackUrl: '/dashboard' })}
+                                      >
+                                        <IconBrandGoogle className="h-5 w-5 text-gray-300" />
+                                        <span className="text-sm font-medium">Sign up with Google</span>
+                                        
+                                      </button>
+                                    </div>
           </form>
         </Form>
 
