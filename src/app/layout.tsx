@@ -1,9 +1,12 @@
+
+
 import type { Metadata } from "next";
 
 import "./globals.css";
 import AuthProvider from "@/context/authProvider";
 import { Toaster } from "sonner";
 
+import ClientLayout from "./ClientLayout";
 
 
 export const metadata: Metadata = {
@@ -16,14 +19,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
+
   return (
     
     <html lang="en">
       <body
-        className={` bg-gray-950 h-full`}
+        className={` h-full`}
       >
         <AuthProvider>
+          <ClientLayout>
         {children}
+        </ClientLayout>
         <Toaster/>
         </AuthProvider>
       </body>

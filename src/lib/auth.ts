@@ -9,6 +9,6 @@ export async function getAuth() {
         return null
     }
 
-    return session
+    return session.user
 }
 

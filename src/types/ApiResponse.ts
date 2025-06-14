@@ -7,8 +7,8 @@ class ApiResponse {
 
   constructor(
     statusCode:number,
-    data: any,
     message: string = "Request successful",
+    data: any = "",
     success: boolean = true,
     errors?: string[]
   ) {
